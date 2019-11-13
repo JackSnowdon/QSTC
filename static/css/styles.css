@@ -1,0 +1,28 @@
+
+
+/* Background */
+
+.bg {
+    background-color: black;
+    color: #f4f4f4;
+    height: 100vh;
+}
+
+
+/* NavBar */
+
+.nav-bg {
+    background-color: #2d2b0e;
+}
+
+.nav-bg a {
+    color: #f4f4f4;
+}
+
+.nav-button {
+    color: #f4f4f4;
+}
+
+.navbar-toggler {
+    outline: none;
+}
