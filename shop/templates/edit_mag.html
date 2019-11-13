@@ -1,6 +1,6 @@
 {% extends 'base.html' %}  {% block page_title %} Edit Mag {% endblock %} {% block content %}
 
-<h2>Edit Mag</h2>
+<h2>Edit {{ item.name }} Stock</h2>
 <form role="form" method="post" id="edit-mag-form">
     <div class="form-group">
         {{ mag_form.as_p }}

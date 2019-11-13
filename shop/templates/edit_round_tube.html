@@ -1,0 +1,12 @@
+{% extends 'base.html' %}  {% block page_title %} Edit Round Tube {% endblock %} {% block content %}
+
+<h2>Edit {{ item.name }} Stock</h2>
+<form role="form" method="post" id="edit-round-tube-form">
+    <div class="form-group">
+        {{ round_form.as_p }}
+        {% csrf_token %}
+        <input class="btn btn-success" id="submit_round-tube" name="commit" type="submit" value="Edit Round Tube">
+    </div>
+</form>
+
+{% endblock %}

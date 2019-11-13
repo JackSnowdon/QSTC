@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
-from .models import Round, Shader, Mag
+from .models import Round, RoundTube, Shader, Mag
 from .forms import (
     EditRoundForm,
+    EditRoundTubeForm,
     EditShaderForm,
     EditMagForm,
     RoundForm,
+    RoundTubeForm,
     ShaderForm,
     MagForm,
 )
@@ -15,10 +17,11 @@ from .forms import (
 
 
 def shop(request):
-    rounds = Round.objects.all()
-    shaders = Shader.objects.all()
-    mags = Mag.objects.all()
-    return render(request, "shop.html", {"round": rounds, "shaders": shaders, "mags": mags})
+    rounds = Round.objects.order_by('name')
+    shaders = Shader.objects.order_by('name')
+    mags = Mag.objects.order_by('name')
+    tubes = RoundTube.objects.order_by('name')
+    return render(request, "shop.html", {"round": rounds, "shaders": shaders, "mags": mags, "tubes": tubes})
 
 
 def add_round(request):
@@ -48,7 +51,7 @@ def edit_round(request, id):
             return redirect("shop")
     else:
         round_form = EditRoundForm(instance=item)
-    return render(request, "edit_round.html", {"round_form": round_form})
+    return render(request, "edit_round.html", {"round_form": round_form, "item": item})
 
 
 def delete_round(request, pk=id):
@@ -84,7 +87,7 @@ def edit_shader(request, id):
             return redirect("shop")
     else:
         shader_form = EditShaderForm(instance=item)
-    return render(request, "edit_shader.html", {"shader_form": shader_form})
+    return render(request, "edit_shader.html", {"shader_form": shader_form, "item": item})
 
 
 def delete_shader(request, pk=id):
@@ -120,7 +123,7 @@ def edit_mag(request, id):
             return redirect("shop")
     else:
         mag_form = EditMagForm(instance=item)
-    return render(request, "edit_mag.html", {"mag_form": mag_form})
+    return render(request, "edit_mag.html", {"mag_form": mag_form, "item": item})
 
 
 def delete_mag(request, pk=id):
@@ -128,3 +131,38 @@ def delete_mag(request, pk=id):
     instance.delete()
     return redirect(reverse("shop"))
 
+
+def add_round_tube(request):
+    if request.method == "POST":
+        round_form = RoundTubeForm(request.POST)
+        if round_form.is_valid():
+            rounds = round_form.save(commit=False)
+            size = request.POST["size"]
+            rounds.liner = "RT"
+            title = size + rounds.liner
+            rounds.name = title
+            rounds.ton = "Tubes"
+            rounds.save()
+            # messages.error(request, 'Added {0}'.format(player.name), extra_tags='alert boldest')
+            return redirect("shop")
+    else:
+        round_form = RoundTubeForm()
+    return render(request, "add_round_tube.html", {"round_form": round_form})
+
+
+def edit_round_tube(request, id):
+    item = get_object_or_404(RoundTube, pk=id)
+    if request.method == "POST":
+        round_form = EditRoundTubeForm(request.POST, instance=item)
+        if round_form.is_valid():
+            round_form.save()
+            return redirect("shop")
+    else:
+        round_form = EditRoundTubeForm(instance=item)
+    return render(request, "edit_round_tube.html", {"round_form": round_form, "item": item})
+
+
+def delete_round_tube(request, pk=id):
+    instance = RoundTube.objects.get(pk=pk)
+    instance.delete()
+    return redirect(reverse("shop"))

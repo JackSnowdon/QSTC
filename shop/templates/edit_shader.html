@@ -1,6 +1,6 @@
 {% extends 'base.html' %}  {% block page_title %} Edit Shader {% endblock %} {% block content %}
 
-<h2>Edit Shader</h2>
+<h2>Edit {{ item.name }} Stock</h2>
 <form role="form" method="post" id="edit-shader-form">
     <div class="form-group">
         {{ shader_form.as_p }}

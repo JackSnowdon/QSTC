@@ -111,6 +111,46 @@
             <button id="add-mag" class="btn btn-warning" aria-disabled="false">Add Mag</button>
         </a>
     </div>
-</div>
+</div>  
+
+<br>
+<br>
+<br>
+
+<h2>Tubes</h2>
+
+
+<div class="row">
+        <div class="col-12">
+            <hr class="bar-thin">
+            <h3>Round Tubes:</h3>
+            <br>
+        </div>
+        {% for t in tubes %}
+        <div class="col-2 text-center">
+            <h3>{{ t.name }}</h3>
+            <h4>Stock: {{ t.stock }}</h4>
+            <a href="{% url 'edit_round_tube' t.id %}">
+                <button id="edit-tube" class="btn btn-warning" aria-disabled="false">Edit Tube</button>
+            </a>
+            <br>
+            <div class="form-box">
+                <form class="" method="post" action="{% url 'delete_round_tube' t.id %}">
+                    {% csrf_token %}
+                    <button class="btn btn-warning" type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-12">
+            <a href="{% url 'add_round_tube' %}">
+                <button id="add-round-tube" class="btn btn-warning" aria-disabled="false">Add Round Tube</button>
+            </a>
+        </div>
+    </div>
 
 {% endblock %}
