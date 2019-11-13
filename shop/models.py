@@ -37,3 +37,14 @@ class Shader(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Mag(models.Model):
+    name = models.CharField(max_length=50)
+    size = models.IntegerField()
+    liner = models.CharField(max_length=32, default="Magnum Shader")
+    ton = models.CharField(max_length=20, choices=NT_CHOICES, default=Needles)
+    stock = models.IntegerField()
+
+    def __str__(self):
+        return self.name

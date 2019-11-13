@@ -8,10 +8,13 @@
     </div>
 </div>
 
+<h2>Needles</h2>
+
 <div class="row">
     <div class="col-12">
-        <h2>Rounds:</h2>
         <hr class="bar-thin">
+        <h3>Rounds:</h3>
+        <br>
     </div>
     {% for r in round %}
     <div class="col-2 text-center">
@@ -30,11 +33,8 @@
     </div>
     {% endfor %}
 </div>
-
-
 <br>
 <br>
-
 <div class="row">
     <div class="col-12">
         <a href="{% url 'add_round' %}">
@@ -47,8 +47,9 @@
 
 <div class="row">
     <div class="col-12">
-        <h2>Shaders:</h2>
         <hr class="bar-thin">
+        <h3>Shaders:</h3>
+        <br>
     </div>
     {% for s in shaders %}
     <div class="col-2 text-center">
@@ -67,15 +68,47 @@
     </div>
     {% endfor %}
 </div>
-
-
 <br>
 <br>
-
 <div class="row">
     <div class="col-12">
         <a href="{% url 'add_shader' %}">
             <button id="add-shader" class="btn btn-warning" aria-disabled="false">Add Shader</button>
+        </a>
+    </div>
+</div>
+
+<br>
+
+<div class="row">
+    <div class="col-12">
+        <hr class="bar-thin">
+        <h3>Mags:</h3>
+        <br>
+    </div>
+    {% for m in mags %}
+    <div class="col-2 text-center">
+        <h3>{{ m.name }}</h3>
+        <h4>Stock: {{ m.stock }}</h4>
+        <a href="{% url 'edit_mag' m.id %}">
+            <button id="edit-mag" class="btn btn-warning" aria-disabled="false">Edit Mag</button>
+        </a>
+        <br>
+        <div class="form-box">
+            <form class="" method="post" action="{% url 'delete_mag' m.id %}">
+                {% csrf_token %}
+                <button class="btn btn-warning" type="submit">Delete</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<br>
+<br>
+<div class="row">
+    <div class="col-12">
+        <a href="{% url 'add_mag' %}">
+            <button id="add-mag" class="btn btn-warning" aria-disabled="false">Add Mag</button>
         </a>
     </div>
 </div>

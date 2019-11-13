@@ -1,0 +1,12 @@
+{% extends 'base.html' %}  {% block page_title %} Edit Mag {% endblock %} {% block content %}
+
+<h2>Edit Mag</h2>
+<form role="form" method="post" id="edit-mag-form">
+    <div class="form-group">
+        {{ mag_form.as_p }}
+        {% csrf_token %}
+        <input class="btn btn-success" id="submit_mag" name="commit" type="submit" value="Edit Mag">
+    </div>
+</form>
+
+{% endblock %}

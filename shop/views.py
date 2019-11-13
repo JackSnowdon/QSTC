@@ -1,7 +1,14 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
-from .models import Round, Shader
-from .forms import EditRoundForm, EditShaderForm, RoundForm, ShaderForm
+from .models import Round, Shader, Mag
+from .forms import (
+    EditRoundForm,
+    EditShaderForm,
+    EditMagForm,
+    RoundForm,
+    ShaderForm,
+    MagForm,
+)
 
 
 # Create your views here.
@@ -10,7 +17,8 @@ from .forms import EditRoundForm, EditShaderForm, RoundForm, ShaderForm
 def shop(request):
     rounds = Round.objects.all()
     shaders = Shader.objects.all()
-    return render(request, "shop.html", {"round": rounds, "shaders": shaders})
+    mags = Mag.objects.all()
+    return render(request, "shop.html", {"round": rounds, "shaders": shaders, "mags": mags})
 
 
 def add_round(request):
@@ -42,10 +50,11 @@ def edit_round(request, id):
         round_form = EditRoundForm(instance=item)
     return render(request, "edit_round.html", {"round_form": round_form})
 
+
 def delete_round(request, pk=id):
     instance = Round.objects.get(pk=pk)
     instance.delete()
-    return redirect(reverse('shop'))
+    return redirect(reverse("shop"))
 
 
 def add_shader(request):
@@ -65,6 +74,7 @@ def add_shader(request):
         shader_form = ShaderForm()
     return render(request, "add_shader.html", {"shader_form": shader_form})
 
+
 def edit_shader(request, id):
     item = get_object_or_404(Shader, pk=id)
     if request.method == "POST":
@@ -76,7 +86,45 @@ def edit_shader(request, id):
         shader_form = EditShaderForm(instance=item)
     return render(request, "edit_shader.html", {"shader_form": shader_form})
 
+
 def delete_shader(request, pk=id):
     instance = Shader.objects.get(pk=pk)
     instance.delete()
-    return redirect(reverse('shop'))
+    return redirect(reverse("shop"))
+
+
+def add_mag(request):
+    if request.method == "POST":
+        mag_form = MagForm(request.POST)
+        if mag_form.is_valid():
+            mag = mag_form.save(commit=False)
+            size = request.POST["size"]
+            mag.liner = "M"
+            title = size + mag.liner
+            mag.name = title
+            mag.ton = "Needles"
+            mag.save()
+            # messages.error(request, 'Added {0}'.format(player.name), extra_tags='alert boldest')
+            return redirect("shop")
+    else:
+        mag_form = MagForm()
+    return render(request, "add_mag.html", {"mag_form": mag_form})
+
+
+def edit_mag(request, id):
+    item = get_object_or_404(Mag, pk=id)
+    if request.method == "POST":
+        mag_form = EditMagForm(request.POST, instance=item)
+        if mag_form.is_valid():
+            mag_form.save()
+            return redirect("shop")
+    else:
+        mag_form = EditMagForm(instance=item)
+    return render(request, "edit_mag.html", {"mag_form": mag_form})
+
+
+def delete_mag(request, pk=id):
+    instance = Shader.objects.get(pk=pk)
+    instance.delete()
+    return redirect(reverse("shop"))
+
