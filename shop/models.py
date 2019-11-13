@@ -4,18 +4,36 @@ from django.db import models
 
 RL = 'RL'
 TL = 'TL'
+Needles = 'Neeedles'
+Tubes = 'Tubes'
 
 liner_choices = (
     (RL, 'Round Liner'),
     (TL, 'Tight Liner'),
 )
 
+NT_CHOICES = (
+    (Needles, 'Needles'),
+    (Tubes, 'Tubes'),
+)
+
 class Round(models.Model):
     name = models.CharField(max_length=50)
-    size = models.IntegerField(max_length=1)
+    size = models.IntegerField()
     liner = models.CharField(max_length=32, choices=liner_choices, default=RL)
-    stock = models.IntegerField(max_length=5)
+    ton = models.CharField(max_length=20, choices=NT_CHOICES, default=Needles)
+    stock = models.IntegerField()
 
     def __str__(self):
         return self.name
     
+
+class Shader(models.Model):
+    name = models.CharField(max_length=50)
+    size = models.IntegerField()
+    liner = models.CharField(max_length=32, default="Round Shader")
+    ton = models.CharField(max_length=20, choices=NT_CHOICES, default=Needles)
+    stock = models.IntegerField()
+
+    def __str__(self):
+        return self.name

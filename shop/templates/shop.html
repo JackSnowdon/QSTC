@@ -20,10 +20,13 @@
         <a href="{% url 'edit_round' r.id %}">
             <button id="edit-round" class="btn btn-warning" aria-disabled="false">Edit Stock</button>
         </a>
-        <form class="" method="post" action="{% url 'delete_round' r.id %}">
-            {% csrf_token %}
-            <button class="btn btn-warning" type="submit">Delete</button>
-        </form>
+        <br>
+        <div class="form-box">
+            <form class="" method="post" action="{% url 'delete_round' r.id %}">
+                {% csrf_token %}
+                <button class="btn btn-warning" type="submit">Delete</button>
+            </form>
+        </div>
     </div>
     {% endfor %}
 </div>
@@ -40,5 +43,31 @@
     </div>
 </div>
 
+<br>
+
+<div class="row">
+        <div class="col-12">
+            <h2>Shaders:</h2>
+            <hr class="bar-thin">
+        </div>
+        {% for s in shaders %}
+        <div class="col-2 text-center">
+            <h3>{{ s.name }}</h3>
+            <h4>Stock: {{ s.stock }}</h4>
+        </div>
+        {% endfor %}
+    </div>
+    
+    
+    <br>
+    <br>
+    
+    <div class="row">
+        <div class="col-12">
+            <a href="{% url 'add_shader' %}">
+                <button id="add-shader" class="btn btn-warning" aria-disabled="false">Add Shader</button>
+            </a>
+        </div>
+    </div>
 
 {% endblock %}
