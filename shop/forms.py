@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Round, RoundTube, Shader, Mag
+from .models import Flat, Round, RoundTube, Shader, Mag, Vtip
 
 class RoundForm(forms.ModelForm):
 
@@ -50,4 +50,30 @@ class EditRoundTubeForm(forms.ModelForm):
 
     class Meta:
         model = RoundTube
+        exclude = ['name', 'liner', 'size', 'ton']
+
+class VtipForm(forms.ModelForm):
+
+    class Meta:
+        model = Vtip
+        exclude = ['name', 'liner', 'ton']
+
+
+class EditVtipForm(forms.ModelForm):
+
+    class Meta:
+        model = Vtip
+        exclude = ['name', 'liner', 'size', 'ton']
+
+class FlatForm(forms.ModelForm):
+
+    class Meta:
+        model = Flat
+        exclude = ['name', 'liner', 'ton']
+
+
+class EditFlatForm(forms.ModelForm):
+
+    class Meta:
+        model = Flat
         exclude = ['name', 'liner', 'size', 'ton']

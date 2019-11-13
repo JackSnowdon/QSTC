@@ -16,7 +16,7 @@
         <h3>Rounds:</h3>
         <br>
     </div>
-    {% for r in round %}
+    {% for r in rounds %}
     <div class="col-2 text-center">
         <h3>{{ r.name }}</h3>
         <h4>Stock: {{ r.stock }}</h4>
@@ -111,7 +111,7 @@
             <button id="add-mag" class="btn btn-warning" aria-disabled="false">Add Mag</button>
         </a>
     </div>
-</div>  
+</div>
 
 <br>
 <br>
@@ -121,21 +121,88 @@
 
 
 <div class="row">
+    <div class="col-12">
+        <hr class="bar-thin">
+        <h3>Round Tubes:</h3>
+        <br>
+    </div>
+    {% for t in tubes %}
+    <div class="col-2 text-center">
+        <h3>{{ t.name }}</h3>
+        <h4>Stock: {{ t.stock }}</h4>
+        <a href="{% url 'edit_round_tube' t.id %}">
+            <button id="edit-tube" class="btn btn-warning" aria-disabled="false">Edit Tube</button>
+        </a>
+        <br>
+        <div class="form-box">
+            <form class="" method="post" action="{% url 'delete_round_tube' t.id %}">
+                {% csrf_token %}
+                <button class="btn btn-warning" type="submit">Delete</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<br>
+<br>
+<div class="row">
+    <div class="col-12">
+        <a href="{% url 'add_round_tube' %}">
+            <button id="add-round-tube" class="btn btn-warning" aria-disabled="false">Add Round Tube</button>
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <hr class="bar-thin">
+        <h3>Vtips:</h3>
+        <br>
+    </div>
+    {% for v in vtips %}
+    <div class="col-2 text-center">
+        <h3>{{ v.name }}</h3>
+        <h4>Stock: {{ v.stock }}</h4>
+        <a href="{% url 'edit_vtip' v.id %}">
+            <button id="edit-vtip" class="btn btn-warning" aria-disabled="false">Edit Vtip</button>
+        </a>
+        <br>
+        <div class="form-box">
+            <form class="" method="post" action="{% url 'delete_vtip' v.id %}">
+                {% csrf_token %}
+                <button class="btn btn-warning" type="submit">Delete</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<br>
+<br>
+<div class="row">
+    <div class="col-12">
+        <a href="{% url 'add_vtip' %}">
+            <button id="add-vtip" class="btn btn-warning" aria-disabled="false">Add Vtip</button>
+        </a>
+    </div>
+</div>
+
+
+<div class="row">
         <div class="col-12">
             <hr class="bar-thin">
-            <h3>Round Tubes:</h3>
+            <h3>Flats:</h3>
             <br>
         </div>
-        {% for t in tubes %}
+        {% for v in flats %}
         <div class="col-2 text-center">
-            <h3>{{ t.name }}</h3>
-            <h4>Stock: {{ t.stock }}</h4>
-            <a href="{% url 'edit_round_tube' t.id %}">
-                <button id="edit-tube" class="btn btn-warning" aria-disabled="false">Edit Tube</button>
+            <h3>{{ v.name }}</h3>
+            <h4>Stock: {{ v.stock }}</h4>
+            <a href="{% url 'edit_flat' v.id %}">
+                <button id="edit-flat" class="btn btn-warning" aria-disabled="false">Edit Flat</button>
             </a>
             <br>
             <div class="form-box">
-                <form class="" method="post" action="{% url 'delete_round_tube' t.id %}">
+                <form class="" method="post" action="{% url 'delete_flat' v.id %}">
                     {% csrf_token %}
                     <button class="btn btn-warning" type="submit">Delete</button>
                 </form>
@@ -147,8 +214,8 @@
     <br>
     <div class="row">
         <div class="col-12">
-            <a href="{% url 'add_round_tube' %}">
-                <button id="add-round-tube" class="btn btn-warning" aria-disabled="false">Add Round Tube</button>
+            <a href="{% url 'add_flat' %}">
+                <button id="add-flat" class="btn btn-warning" aria-disabled="false">Add Flat</button>
             </a>
         </div>
     </div>

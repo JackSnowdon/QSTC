@@ -1,15 +1,19 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
-from .models import Round, RoundTube, Shader, Mag
+from .models import Flat, Round, RoundTube, Shader, Mag, Vtip
 from .forms import (
+    EditFlatForm,
     EditRoundForm,
     EditRoundTubeForm,
     EditShaderForm,
     EditMagForm,
+    EditVtipForm,
+    FlatForm,
     RoundForm,
     RoundTubeForm,
     ShaderForm,
     MagForm,
+    VtipForm,
 )
 
 
@@ -21,7 +25,9 @@ def shop(request):
     shaders = Shader.objects.order_by('name')
     mags = Mag.objects.order_by('name')
     tubes = RoundTube.objects.order_by('name')
-    return render(request, "shop.html", {"round": rounds, "shaders": shaders, "mags": mags, "tubes": tubes})
+    vtips = Vtip.objects.order_by('name')
+    flats = Flat.objects.order_by('name')
+    return render(request, "shop.html", {"rounds": rounds, "shaders": shaders, "mags": mags, "tubes": tubes, "vtips": vtips, "flats":flats})
 
 
 def add_round(request):
@@ -166,3 +172,75 @@ def delete_round_tube(request, pk=id):
     instance = RoundTube.objects.get(pk=pk)
     instance.delete()
     return redirect(reverse("shop"))
+
+def add_vtip(request):
+    if request.method == "POST":
+        vtip_form = VtipForm(request.POST)
+        if vtip_form.is_valid():
+            vtip = vtip_form.save(commit=False)
+            size = request.POST["size"]
+            vtip.liner = "RT"
+            title = size + vtip.liner
+            vtip.name = title
+            vtip.ton = "Tubes"
+            vtip.save()
+            # messages.error(request, 'Added {0}'.format(player.name), extra_tags='alert boldest')
+            return redirect("shop")
+    else:
+        vtip_form = VtipForm()
+    return render(request, "add_vtip.html", {"vtip_form": vtip_form})
+
+
+def edit_vtip(request, id):
+    item = get_object_or_404(Vtip, pk=id)
+    if request.method == "POST":
+        vtip_form = EditVtipForm(request.POST, instance=item)
+        if vtip_form.is_valid():
+            vtip_form.save()
+            return redirect("shop")
+    else:
+        vtip_form = EditVtipForm(instance=item)
+    return render(request, "edit_vtip.html", {"vtip_form": vtip_form, "item": item})
+
+
+def delete_vtip(request, pk=id):
+    instance = Vtip.objects.get(pk=pk)
+    instance.delete()
+    return redirect(reverse("shop"))
+
+
+def add_flat(request):
+    if request.method == "POST":
+        flat_form = FlatForm(request.POST)
+        if flat_form.is_valid():
+            flat = flat_form.save(commit=False)
+            size = request.POST["size"]
+            flat.liner = "RT"
+            title = size + flat.liner
+            flat.name = title
+            flat.ton = "Tubes"
+            flat.save()
+            # messages.error(request, 'Added {0}'.format(player.name), extra_tags='alert boldest')
+            return redirect("shop")
+    else:
+        flat_form = FlatForm()
+    return render(request, "add_flat.html", {"flat_form": flat_form})
+
+
+def edit_flat(request, id):
+    item = get_object_or_404(Flat, pk=id)
+    if request.method == "POST":
+        flat_form = EditFlatForm(request.POST, instance=item)
+        if flat_form.is_valid():
+            flat_form.save()
+            return redirect("shop")
+    else:
+        flat_form = EditFlatForm(instance=item)
+    return render(request, "edit_flat.html", {"flat_form": flat_form, "item": item})
+
+
+def delete_flat(request, pk=id):
+    instance = Flat.objects.get(pk=pk)
+    instance.delete()
+    return redirect(reverse("shop"))
+

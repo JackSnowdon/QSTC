@@ -1,0 +1,12 @@
+{% extends 'base.html' %}  {% block page_title %} Edit Flat {% endblock %} {% block content %}
+
+<h2>Edit {{ item.name }} Stock</h2>
+<form role="form" method="post" id="edit-flat-form">
+    <div class="form-group">
+        {{ flat_form.as_p }}
+        {% csrf_token %}
+        <input class="btn btn-success" id="submit_flat" name="commit" type="submit" value="Edit Flat">
+    </div>
+</form>
+
+{% endblock %}

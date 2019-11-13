@@ -59,3 +59,25 @@ class RoundTube(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Vtip(models.Model):
+    name = models.CharField(max_length=50)
+    size = models.IntegerField()
+    liner = models.CharField(max_length=32, default="V Tube")
+    ton = models.CharField(max_length=20, choices=NT_CHOICES, default=Tubes)
+    stock = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
+
+class Flat(models.Model):
+    name = models.CharField(max_length=50)
+    size = models.IntegerField()
+    liner = models.CharField(max_length=32, default="Flat Tube")
+    ton = models.CharField(max_length=20, choices=NT_CHOICES, default=Tubes)
+    stock = models.IntegerField()
+
+    def __str__(self):
+        return self.name

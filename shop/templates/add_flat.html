@@ -1,0 +1,12 @@
+{% extends 'base.html' %}  {% block page_title %} Add Flat {% endblock %} {% block content %}
+
+<h2>New Flat</h2>
+<form role="form" method="post" id="add-flat-form" action="{% url 'add_flat' %}">
+    <div class="form-group">
+        {{ flat_form.as_p }}
+        {% csrf_token %}
+        <input class="btn btn-success" id="submit_flat" name="commit" type="submit" value="Add Flat">
+    </div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}  {% block page_title %} Edit Vtip {% endblock %} {% block content %}
+
+<h2>Edit {{ item.name }} Stock</h2>
+<form role="form" method="post" id="edit-vtip-form">
+    <div class="form-group">
+        {{ vtip_form.as_p }}
+        {% csrf_token %}
+        <input class="btn btn-success" id="submit_vtip" name="commit" type="submit" value="Edit Vtip">
+    </div>
+</form>
+
+{% endblock %}
