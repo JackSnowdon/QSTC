@@ -21,3 +21,10 @@ class ShaderForm(forms.ModelForm):
     class Meta:
         model = Shader
         exclude = ['name', 'liner', 'ton']
+
+
+class EditShaderForm(forms.ModelForm):
+
+    class Meta:
+        model = Shader
+        exclude = ['name', 'liner', 'size', 'ton']

@@ -46,28 +46,38 @@
 <br>
 
 <div class="row">
-        <div class="col-12">
-            <h2>Shaders:</h2>
-            <hr class="bar-thin">
-        </div>
-        {% for s in shaders %}
-        <div class="col-2 text-center">
-            <h3>{{ s.name }}</h3>
-            <h4>Stock: {{ s.stock }}</h4>
-        </div>
-        {% endfor %}
+    <div class="col-12">
+        <h2>Shaders:</h2>
+        <hr class="bar-thin">
     </div>
-    
-    
-    <br>
-    <br>
-    
-    <div class="row">
-        <div class="col-12">
-            <a href="{% url 'add_shader' %}">
-                <button id="add-shader" class="btn btn-warning" aria-disabled="false">Add Shader</button>
-            </a>
+    {% for s in shaders %}
+    <div class="col-2 text-center">
+        <h3>{{ s.name }}</h3>
+        <h4>Stock: {{ s.stock }}</h4>
+        <a href="{% url 'edit_shader' s.id %}">
+            <button id="edit-shader" class="btn btn-warning" aria-disabled="false">Edit Stock</button>
+        </a>
+        <br>
+        <div class="form-box">
+            <form class="" method="post" action="{% url 'delete_shader' s.id %}">
+                {% csrf_token %}
+                <button class="btn btn-warning" type="submit">Delete</button>
+            </form>
         </div>
     </div>
+    {% endfor %}
+</div>
+
+
+<br>
+<br>
+
+<div class="row">
+    <div class="col-12">
+        <a href="{% url 'add_shader' %}">
+            <button id="add-shader" class="btn btn-warning" aria-disabled="false">Add Shader</button>
+        </a>
+    </div>
+</div>
 
 {% endblock %}

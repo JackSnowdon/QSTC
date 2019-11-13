@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from .models import Round, Shader
-from .forms import EditRoundForm, RoundForm, ShaderForm
+from .forms import EditRoundForm, EditShaderForm, RoundForm, ShaderForm
 
 
 # Create your views here.
@@ -65,3 +65,18 @@ def add_shader(request):
         shader_form = ShaderForm()
     return render(request, "add_shader.html", {"shader_form": shader_form})
 
+def edit_shader(request, id):
+    item = get_object_or_404(Shader, pk=id)
+    if request.method == "POST":
+        shader_form = EditShaderForm(request.POST, instance=item)
+        if shader_form.is_valid():
+            shader_form.save()
+            return redirect("shop")
+    else:
+        shader_form = EditShaderForm(instance=item)
+    return render(request, "edit_shader.html", {"shader_form": shader_form})
+
+def delete_shader(request, pk=id):
+    instance = Shader.objects.get(pk=pk)
+    instance.delete()
+    return redirect(reverse('shop'))
