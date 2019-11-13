@@ -26,3 +26,14 @@
 .navbar-toggler {
     outline: none;
 }
+
+
+/* Breaks */
+
+.bar-thin {
+    background-color: #faf5ff;
+    height: 2.5px;
+    width: 350px;
+    border-radius: 7px 7px 7px 7px;
+    border: 1px;
+}   

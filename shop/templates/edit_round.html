@@ -1,0 +1,12 @@
+{% extends 'base.html' %}  {% block page_title %} Edit Round {% endblock %} {% block content %}
+
+<h2>Edit Round</h2>
+<form role="form" method="post" id="edit-round-form">
+    <div class="form-group">
+        {{ round_form.as_p }}
+        {% csrf_token %}
+        <input class="btn btn-success" id="submit_round" name="commit" type="submit" value="Edit Round">
+    </div>
+</form>
+
+{% endblock %}

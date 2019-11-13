@@ -4,7 +4,7 @@ from django.db import models
 
 RL = 'RL'
 TL = 'TL'
-    
+
 liner_choices = (
     (RL, 'Round Liner'),
     (TL, 'Tight Liner'),

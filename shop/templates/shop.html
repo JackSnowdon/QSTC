@@ -10,6 +10,30 @@
 
 <div class="row">
     <div class="col-12">
+        <h2>Rounds:</h2>
+        <hr class="bar-thin">
+    </div>
+    {% for r in round %}
+    <div class="col-2 text-center">
+        <h3>{{ r.name }}</h3>
+        <h4>Stock: {{ r.stock }}</h4>
+        <a href="{% url 'edit_round' r.id %}">
+            <button id="edit-round" class="btn btn-warning" aria-disabled="false">Edit Stock</button>
+        </a>
+        <form class="" method="post" action="{% url 'delete_round' r.id %}">
+            {% csrf_token %}
+            <button class="btn btn-warning" type="submit">Delete</button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+
+
+<br>
+<br>
+
+<div class="row">
+    <div class="col-12">
         <a href="{% url 'add_round' %}">
             <button id="add-round" class="btn btn-warning" aria-disabled="false">Add Round</button>
         </a>
