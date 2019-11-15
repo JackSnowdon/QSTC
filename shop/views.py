@@ -61,6 +61,31 @@ def edit_round(request, id):
         round_form = EditRoundForm(instance=item)
     return render(request, "edit_round.html", {"round_form": round_form, "item": item})
 
+def plus_stock(x):
+    x.stock += 1
+    x.save()
+
+def minus_stock(x):
+    x.stock -= 1
+    x.save()
+
+#def get_edit_name(x):
+#    size = str(x.size)
+#    liner = x.liner
+#    title = size + liner
+#    return title  
+
+def plus_round(request, id):
+    item = get_object_or_404(Round, pk=id)
+    plus_stock(item)
+    return redirect(reverse("shop"))
+
+def minus_round(request, id):
+    item = get_object_or_404(Round, pk=id)
+    minus_stock(item)
+    return redirect(reverse("shop"))
+
+
 
 def delete_round(request, pk=id):
     instance = Round.objects.get(pk=pk)

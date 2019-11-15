@@ -31,7 +31,7 @@
         <p class="stock-line-item">Name: {{ r.name }}</p>
     </div>
     <div class="col-4">
-        <p class="stock-line-item">Stock: {{ r.stock }}</p>
+        <p class="stock-line-item">Stock: {{ r.stock }} <a href="{% url 'plus_round' r.id %}"><span><i class="fas fa-plus"></i></span></a><a href="{% url 'minus_round' r.id %}"> <span><i class="fas fa-minus"></i></span></a></p>
     </div>
     <div class="col-4">
         <div class="stock-line-buttons">

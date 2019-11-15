@@ -18,6 +18,8 @@ from .views import (
     edit_shader,
     edit_mag,
     edit_vtip,
+    plus_round,
+    minus_round,
     shop,
 )
 
@@ -41,4 +43,6 @@ urlpatterns = [
     path(r"delete_round_tube/<int:pk>", delete_round_tube, name="delete_round_tube"),
     path(r"delete_vtip/<int:pk>", delete_vtip, name="delete_vtip"),
     path(r"delete_flat/<int:pk>", delete_flat, name="delete_flat"),
+    path(r"plus_round/<int:id>", plus_round, name="plus_round"),
+    path(r"minus_round/<int:id>", minus_round, name="minus_round"),
 ]
