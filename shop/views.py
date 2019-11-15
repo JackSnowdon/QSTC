@@ -41,11 +41,11 @@ def add_round(request):
             rounds.name = title
             rounds.ton = "Needles"
             rounds.save()
-            # messages.error(request, 'Added {0}'.format(player.name), extra_tags='alert boldest')
+            messages.error(request, 'Added {0} to Rounds'.format(title), extra_tags='alert')
             return redirect("shop")
     else:
         round_form = RoundForm()
-    return render(request, "add_round.html", {"round_form": round_form})
+    return render(request, "add_round.html", {"round_form": round_form})  
 
 
 def edit_round(request, id):
@@ -53,7 +53,9 @@ def edit_round(request, id):
     if request.method == "POST":
         round_form = EditRoundForm(request.POST, instance=item)
         if round_form.is_valid():
+            title = get_edit_name(item)
             round_form.save()
+            messages.error(request, 'Edited {0}'.format(title), extra_tags='alert')
             return redirect("shop")
     else:
         round_form = EditRoundForm(instance=item)
@@ -62,6 +64,8 @@ def edit_round(request, id):
 
 def delete_round(request, pk=id):
     instance = Round.objects.get(pk=pk)
+    title = get_edit_name(instance)
+    messages.error(request, 'Deleted {0}'.format(title), extra_tags='alert')
     instance.delete()
     return redirect(reverse("shop"))
 
@@ -77,7 +81,7 @@ def add_shader(request):
             shader.name = title
             shader.ton = "Needles"
             shader.save()
-            # messages.error(request, 'Added {0}'.format(player.name), extra_tags='alert boldest')
+            messages.error(request, 'Added {0} to Shaders'.format(title), extra_tags='alert')
             return redirect("shop")
     else:
         shader_form = ShaderForm()
@@ -90,6 +94,8 @@ def edit_shader(request, id):
         shader_form = EditShaderForm(request.POST, instance=item)
         if shader_form.is_valid():
             shader_form.save()
+            title = get_edit_name(item)
+            messages.error(request, 'Edited {0}'.format(title), extra_tags='alert')
             return redirect("shop")
     else:
         shader_form = EditShaderForm(instance=item)
@@ -98,6 +104,8 @@ def edit_shader(request, id):
 
 def delete_shader(request, pk=id):
     instance = Shader.objects.get(pk=pk)
+    title = get_edit_name(instance)
+    messages.error(request, 'Deleted {0}'.format(title), extra_tags='alert')
     instance.delete()
     return redirect(reverse("shop"))
 
@@ -113,7 +121,7 @@ def add_mag(request):
             mag.name = title
             mag.ton = "Needles"
             mag.save()
-            # messages.error(request, 'Added {0}'.format(player.name), extra_tags='alert boldest')
+            messages.error(request, 'Added {0} to Mags'.format(title), extra_tags='alert')
             return redirect("shop")
     else:
         mag_form = MagForm()
@@ -126,6 +134,8 @@ def edit_mag(request, id):
         mag_form = EditMagForm(request.POST, instance=item)
         if mag_form.is_valid():
             mag_form.save()
+            title = get_edit_name(item)
+            messages.error(request, 'Edited {0}'.format(title), extra_tags='alert')
             return redirect("shop")
     else:
         mag_form = EditMagForm(instance=item)
@@ -133,7 +143,9 @@ def edit_mag(request, id):
 
 
 def delete_mag(request, pk=id):
-    instance = Shader.objects.get(pk=pk)
+    instance = Mag.objects.get(pk=pk)
+    title = get_edit_name(instance)
+    messages.error(request, 'Deleted {0}'.format(title), extra_tags='alert')
     instance.delete()
     return redirect(reverse("shop"))
 
@@ -149,7 +161,7 @@ def add_round_tube(request):
             rounds.name = title
             rounds.ton = "Tubes"
             rounds.save()
-            # messages.error(request, 'Added {0}'.format(player.name), extra_tags='alert boldest')
+            messages.error(request, 'Added {0} to Tubes'.format(title), extra_tags='alert')
             return redirect("shop")
     else:
         round_form = RoundTubeForm()
@@ -162,6 +174,8 @@ def edit_round_tube(request, id):
         round_form = EditRoundTubeForm(request.POST, instance=item)
         if round_form.is_valid():
             round_form.save()
+            title = get_edit_name(item)
+            messages.error(request, 'Edited {0}'.format(title), extra_tags='alert')
             return redirect("shop")
     else:
         round_form = EditRoundTubeForm(instance=item)
@@ -170,6 +184,8 @@ def edit_round_tube(request, id):
 
 def delete_round_tube(request, pk=id):
     instance = RoundTube.objects.get(pk=pk)
+    title = get_edit_name(instance)
+    messages.error(request, 'Deleted {0}'.format(title), extra_tags='alert')
     instance.delete()
     return redirect(reverse("shop"))
 
@@ -179,12 +195,12 @@ def add_vtip(request):
         if vtip_form.is_valid():
             vtip = vtip_form.save(commit=False)
             size = request.POST["size"]
-            vtip.liner = "RT"
+            vtip.liner = "VT"
             title = size + vtip.liner
             vtip.name = title
             vtip.ton = "Tubes"
             vtip.save()
-            # messages.error(request, 'Added {0}'.format(player.name), extra_tags='alert boldest')
+            messages.error(request, 'Added {0} to VTips'.format(title), extra_tags='alert')
             return redirect("shop")
     else:
         vtip_form = VtipForm()
@@ -197,6 +213,8 @@ def edit_vtip(request, id):
         vtip_form = EditVtipForm(request.POST, instance=item)
         if vtip_form.is_valid():
             vtip_form.save()
+            title = get_edit_name(item)
+            messages.error(request, 'Edited {0}'.format(title), extra_tags='alert')
             return redirect("shop")
     else:
         vtip_form = EditVtipForm(instance=item)
@@ -205,6 +223,8 @@ def edit_vtip(request, id):
 
 def delete_vtip(request, pk=id):
     instance = Vtip.objects.get(pk=pk)
+    title = get_edit_name(instance)
+    messages.error(request, 'Deleted {0}'.format(title), extra_tags='alert')
     instance.delete()
     return redirect(reverse("shop"))
 
@@ -215,12 +235,12 @@ def add_flat(request):
         if flat_form.is_valid():
             flat = flat_form.save(commit=False)
             size = request.POST["size"]
-            flat.liner = "RT"
+            flat.liner = "F"
             title = size + flat.liner
             flat.name = title
             flat.ton = "Tubes"
             flat.save()
-            # messages.error(request, 'Added {0}'.format(player.name), extra_tags='alert boldest')
+            messages.error(request, 'Added {0} to Flats'.format(title), extra_tags='alert')
             return redirect("shop")
     else:
         flat_form = FlatForm()
@@ -233,6 +253,8 @@ def edit_flat(request, id):
         flat_form = EditFlatForm(request.POST, instance=item)
         if flat_form.is_valid():
             flat_form.save()
+            title = get_edit_name(item)
+            messages.error(request, 'Edited {0}'.format(title), extra_tags='alert')
             return redirect("shop")
     else:
         flat_form = EditFlatForm(instance=item)
@@ -241,6 +263,19 @@ def edit_flat(request, id):
 
 def delete_flat(request, pk=id):
     instance = Flat.objects.get(pk=pk)
+    title = get_edit_name(instance)
+    messages.error(request, 'Deleted {0}'.format(title), extra_tags='alert')
     instance.delete()
     return redirect(reverse("shop"))
 
+
+
+"""
+Helper Functions
+"""
+
+def get_edit_name(x):
+    size = str(x.size)
+    liner = x.liner
+    title = size + liner
+    return title  
