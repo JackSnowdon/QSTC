@@ -399,37 +399,40 @@ def delete_flat(request, pk=id):
     return redirect(reverse("shop"))
 
 
-# Stock Helpers
+# Stock 
 
 
 def get_all_stock(request):
-    rounds = Round.objects.order_by("name")
-    shaders = Shader.objects.order_by("name")
-    mags = Mag.objects.order_by("name")
-    tubes = RoundTube.objects.order_by("name")
-    vtips = Vtip.objects.order_by("name")
-    flats = Flat.objects.order_by("name")
+    
+    rounds = Round.objects.values('name', 'stock').order_by('name')
+    shaders = Shader.objects.values('name', 'stock').order_by('name')
+    mags = Mag.objects.values('name', 'stock').order_by("name")
+    tubes = RoundTube.objects.values('name', 'stock').order_by("name")
+    vtips = Vtip.objects.values('name', 'stock').order_by("name")
+    flats = Flat.objects.values('name', 'stock').order_by("name")
+    return render(
+        request,
+        "stock.html",
+        {
+            "rounds": rounds,
+            "shaders": shaders,
+            "mags": mags,
+            "tubes": tubes,
+            "vtips": vtips,
+            "flats": flats,
+        },
+    )
+    print(rounds)
+    print(shaders) 
 
-    round_list = unpack_stock(rounds)
-    shader_list = unpack_stock(shaders)
-    mag_list = unpack_stock(mags)
-    tube_list = unpack_stock(tubes)
-    vtip_list = unpack_stock(vtips)
-    flat_list = unpack_stock(flats)
+    return render(
+        request,
+        "stock.html",
+        {
+            "rounds": rounds,
+        },
+    )
 
-    print("rounds", round_list)
-    print("shaders", shader_list)
-    print("mags", mag_list)
-    print("tubes", tube_list)
-    print("vtips", vtip_list)
-    print("flat_list", flat_list)   
-    return redirect(reverse("shop"))
-
-def unpack_stock(x):
-    name_list = ([y.name for y in x])
-    stock_list = ([y.stock for y in x])
-    full_list = dict(zip(name_list, stock_list))
-    return full_list
 
 
 # Helper Functions

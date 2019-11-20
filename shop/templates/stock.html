@@ -1,0 +1,157 @@
+{% extends 'base.html' %} {% load static %} {% block page_title %} QTSC - Stock {% endblock %} {% block content %}
+
+<h1 class="text-center">Stock Report</h1>
+<a href="{% url 'shop' %}" role="button" class="btn btn-warning" id="back" aria-disabled="false">Back To Shop</a>
+<br>
+<br>
+
+
+
+<h2>Needles</h2>
+<hr class="bar-thin">
+
+<br>
+<div class="row">
+    <div class="col-2">
+        <h3>Rounds:</h3>
+    </div>
+    <br>
+    <br>
+</div>
+{% for r in rounds %}
+<div class="row stock-line">
+    <div class="col-6">
+        <p class="stock-line-item">Name: {{ r.name }}</p>
+    </div>
+    <div class="col-6">
+        <p class="stock-line-item">Stock: {{ r.stock }}</p>
+    </div>
+</div>
+<br>
+{% endfor %}
+<br>
+<hr class="bar-thin">
+<br>
+
+<div class="row">
+    <div class="col-2">
+        <h3>Shaders:</h3>
+    </div>
+    <br>
+    <br>
+</div>
+{% for s in shaders %}
+<div class="row stock-line">
+    <div class="col-6">
+        <p class="stock-line-item">Name: {{ s.name }}</p>
+    </div>
+    <div class="col-6">
+        <p class="stock-line-item">Stock: {{ s.stock }}</p>
+    </div>
+</div>
+<br>
+{% endfor %}
+<br>
+<hr class="bar-thin">
+<br>
+
+<div class="row">
+    <div class="col-2">
+        <h3>Mags:</h3>
+    </div>
+    <br>
+    <br>
+</div>
+{% for m in mags %}
+<div class="row stock-line">
+    <div class="col-6">
+        <p class="stock-line-item">Name: {{ m.name }}</p>
+    </div>
+    <div class="col-6">
+        <p class="stock-line-item">Stock: {{ m.stock }}</p>
+    </div>
+</div>
+<br>
+{% endfor %}
+<br>
+<hr class="bar-thin">
+<br>
+<br>
+
+<h2>Tubes</h2>
+<hr class="bar-thin">
+<br>
+
+<div class="row">
+    <div class="col-2" style="display: contents">
+        <h3>Round Tubes:</h3>
+    </div>
+    <br>
+    <br>
+</div>
+{% for t in tubes %}
+<div class="row stock-line">
+    <div class="col-6">
+        <p class="stock-line-item">Name: {{ t.name }}</p>
+    </div>
+    <div class="col-6">
+        <p class="stock-line-item">Stock: {{ t.stock }}</p>
+    </div>
+</div>
+<br>
+{% endfor %}
+
+<br>
+<hr class="bar-thin">
+<br>
+
+<div class="row">
+    <div class="col-2">
+        <h3>Vtips:</h3>
+    </div>
+    <br>
+    <br>
+</div>
+{% for v in vtips %}
+<div class="row stock-line">
+    <div class="col-6">
+        <p class="stock-line-item">Name: {{ v.name }}</p>
+    </div>
+    <div class="col-6">
+        <p class="stock-line-item">Stock: {{ v.stock }}</p>
+    </div>
+</div>
+<br>
+{% endfor %}
+
+<br>
+<hr class="bar-thin">
+<br>
+
+<div class="row">
+    <div class="col-2">
+        <h3>Flats:</h3>
+    </div>
+    <br>
+    <br>
+</div>
+{% for f in flats %}
+<div class="row stock-line">
+    <div class="col-6">
+        <p class="stock-line-item">Name: {{ f.name }}</p>
+    </div>
+    <div class="col-6">
+        <p class="stock-line-item">Stock: {{ f.stock }}</p>
+    </div>
+</div>
+<br>
+{% endfor %}
+
+<div class="text-center">
+    <a href="#" role="button" class="btn btn-warning" id="all-stock" aria-disabled="false">Confirm and Save Stock</a>
+</div>
+
+<br>
+<br>
+
+{% endblock %}
