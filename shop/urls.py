@@ -18,6 +18,7 @@ from .views import (
     edit_shader,
     edit_mag,
     edit_vtip,
+    get_all_stock,
     minus_round,
     minus_round_tube,
     minus_shader,
@@ -35,6 +36,7 @@ from .views import (
 
 urlpatterns = [
     path("shop/", shop, name="shop"),
+    path("get_all_stock/", get_all_stock, name="get_all_stock"),
     path("add_round/", add_round, name="add_round"),
     path("add_round_tube/", add_round_tube, name="add_round_tube"),
     path("add_mag/", add_mag, name="add_mag"),

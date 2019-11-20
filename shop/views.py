@@ -21,13 +21,24 @@ from .forms import (
 
 
 def shop(request):
-    rounds = Round.objects.order_by('name')
-    shaders = Shader.objects.order_by('name')
-    mags = Mag.objects.order_by('name')
-    tubes = RoundTube.objects.order_by('name')
-    vtips = Vtip.objects.order_by('name')
-    flats = Flat.objects.order_by('name')
-    return render(request, "shop.html", {"rounds": rounds, "shaders": shaders, "mags": mags, "tubes": tubes, "vtips": vtips, "flats":flats})
+    rounds = Round.objects.order_by("name")
+    shaders = Shader.objects.order_by("name")
+    mags = Mag.objects.order_by("name")
+    tubes = RoundTube.objects.order_by("name")
+    vtips = Vtip.objects.order_by("name")
+    flats = Flat.objects.order_by("name")
+    return render(
+        request,
+        "shop.html",
+        {
+            "rounds": rounds,
+            "shaders": shaders,
+            "mags": mags,
+            "tubes": tubes,
+            "vtips": vtips,
+            "flats": flats,
+        },
+    )
 
 
 # Rounds
@@ -44,11 +55,14 @@ def add_round(request):
             rounds.name = title
             rounds.ton = "Needles"
             rounds.save()
-            messages.error(request, 'Added {0} to Rounds'.format(title), extra_tags='alert')
+            messages.error(
+                request, "Added {0} to Rounds".format(title), extra_tags="alert"
+            )
             return redirect("shop")
     else:
         round_form = RoundForm()
-    return render(request, "add_round.html", {"round_form": round_form})  
+    return render(request, "add_round.html", {"round_form": round_form})
+
 
 def edit_round(request, id):
     item = get_object_or_404(Round, pk=id)
@@ -57,28 +71,31 @@ def edit_round(request, id):
         if round_form.is_valid():
             title = get_edit_name(item)
             round_form.save()
-            messages.error(request, 'Edited {0}'.format(title), extra_tags='alert')
+            messages.error(request, "Edited {0}".format(title), extra_tags="alert")
             return redirect("shop")
     else:
         round_form = EditRoundForm(instance=item)
     return render(request, "edit_round.html", {"round_form": round_form, "item": item})
 
+
 def plus_round(request, id):
     item = get_object_or_404(Round, pk=id)
     plus_needle_stock(item)
-    messages.error(request, 'Added 50 {0}'.format(item), extra_tags='alert')
+    messages.error(request, "Added 50 {0}".format(item), extra_tags="alert")
     return redirect(reverse("shop"))
+
 
 def minus_round(request, id):
     item = get_object_or_404(Round, pk=id)
     minus_needle_stock(item)
-    messages.error(request, 'Minus 50 {0}'.format(item), extra_tags='alert')
+    messages.error(request, "Minus 50 {0}".format(item), extra_tags="alert")
     return redirect(reverse("shop"))
+
 
 def delete_round(request, pk=id):
     instance = Round.objects.get(pk=pk)
     title = get_edit_name(instance)
-    messages.error(request, 'Deleted {0}'.format(title), extra_tags='alert')
+    messages.error(request, "Deleted {0}".format(title), extra_tags="alert")
     instance.delete()
     return redirect(reverse("shop"))
 
@@ -97,11 +114,14 @@ def add_shader(request):
             shader.name = title
             shader.ton = "Needles"
             shader.save()
-            messages.error(request, 'Added {0} to Shaders'.format(title), extra_tags='alert')
+            messages.error(
+                request, "Added {0} to Shaders".format(title), extra_tags="alert"
+            )
             return redirect("shop")
     else:
         shader_form = ShaderForm()
     return render(request, "add_shader.html", {"shader_form": shader_form})
+
 
 def edit_shader(request, id):
     item = get_object_or_404(Shader, pk=id)
@@ -110,28 +130,33 @@ def edit_shader(request, id):
         if shader_form.is_valid():
             shader_form.save()
             title = get_edit_name(item)
-            messages.error(request, 'Edited {0}'.format(title), extra_tags='alert')
+            messages.error(request, "Edited {0}".format(title), extra_tags="alert")
             return redirect("shop")
     else:
         shader_form = EditShaderForm(instance=item)
-    return render(request, "edit_shader.html", {"shader_form": shader_form, "item": item})
+    return render(
+        request, "edit_shader.html", {"shader_form": shader_form, "item": item}
+    )
+
 
 def plus_shader(request, id):
     item = get_object_or_404(Shader, pk=id)
     plus_needle_stock(item)
-    messages.error(request, 'Added 50 {0}'.format(item), extra_tags='alert')
+    messages.error(request, "Added 50 {0}".format(item), extra_tags="alert")
     return redirect(reverse("shop"))
+
 
 def minus_shader(request, id):
     item = get_object_or_404(Shader, pk=id)
     minus_needle_stock(item)
-    messages.error(request, 'minus 50 {0}'.format(item), extra_tags='alert')
+    messages.error(request, "minus 50 {0}".format(item), extra_tags="alert")
     return redirect(reverse("shop"))
+
 
 def delete_shader(request, pk=id):
     instance = Shader.objects.get(pk=pk)
     title = get_edit_name(instance)
-    messages.error(request, 'Deleted {0}'.format(title), extra_tags='alert')
+    messages.error(request, "Deleted {0}".format(title), extra_tags="alert")
     instance.delete()
     return redirect(reverse("shop"))
 
@@ -150,11 +175,14 @@ def add_mag(request):
             mag.name = title
             mag.ton = "Needles"
             mag.save()
-            messages.error(request, 'Added {0} to Mags'.format(title), extra_tags='alert')
+            messages.error(
+                request, "Added {0} to Mags".format(title), extra_tags="alert"
+            )
             return redirect("shop")
     else:
         mag_form = MagForm()
     return render(request, "add_mag.html", {"mag_form": mag_form})
+
 
 def edit_mag(request, id):
     item = get_object_or_404(Mag, pk=id)
@@ -163,28 +191,31 @@ def edit_mag(request, id):
         if mag_form.is_valid():
             mag_form.save()
             title = get_edit_name(item)
-            messages.error(request, 'Edited {0}'.format(title), extra_tags='alert')
+            messages.error(request, "Edited {0}".format(title), extra_tags="alert")
             return redirect("shop")
     else:
         mag_form = EditMagForm(instance=item)
     return render(request, "edit_mag.html", {"mag_form": mag_form, "item": item})
 
+
 def plus_mag(request, id):
     item = get_object_or_404(Mag, pk=id)
     plus_needle_stock(item)
-    messages.error(request, 'Added 50 {0}'.format(item), extra_tags='alert')
+    messages.error(request, "Added 50 {0}".format(item), extra_tags="alert")
     return redirect(reverse("shop"))
+
 
 def minus_mag(request, id):
     item = get_object_or_404(Mag, pk=id)
     minus_needle_stock(item)
-    messages.error(request, 'Minus 50 {0}'.format(item), extra_tags='alert')
+    messages.error(request, "Minus 50 {0}".format(item), extra_tags="alert")
     return redirect(reverse("shop"))
+
 
 def delete_mag(request, pk=id):
     instance = Mag.objects.get(pk=pk)
     title = get_edit_name(instance)
-    messages.error(request, 'Deleted {0}'.format(title), extra_tags='alert')
+    messages.error(request, "Deleted {0}".format(title), extra_tags="alert")
     instance.delete()
     return redirect(reverse("shop"))
 
@@ -203,11 +234,14 @@ def add_round_tube(request):
             rounds.name = title
             rounds.ton = "Tubes"
             rounds.save()
-            messages.error(request, 'Added {0} to Tubes'.format(title), extra_tags='alert')
+            messages.error(
+                request, "Added {0} to Tubes".format(title), extra_tags="alert"
+            )
             return redirect("shop")
     else:
         round_form = RoundTubeForm()
     return render(request, "add_round_tube.html", {"round_form": round_form})
+
 
 def edit_round_tube(request, id):
     item = get_object_or_404(RoundTube, pk=id)
@@ -216,28 +250,33 @@ def edit_round_tube(request, id):
         if round_form.is_valid():
             round_form.save()
             title = get_edit_name(item)
-            messages.error(request, 'Edited {0}'.format(title), extra_tags='alert')
+            messages.error(request, "Edited {0}".format(title), extra_tags="alert")
             return redirect("shop")
     else:
         round_form = EditRoundTubeForm(instance=item)
-    return render(request, "edit_round_tube.html", {"round_form": round_form, "item": item})
+    return render(
+        request, "edit_round_tube.html", {"round_form": round_form, "item": item}
+    )
+
 
 def plus_round_tube(request, id):
     item = get_object_or_404(RoundTube, pk=id)
     plus_tube_stock(item)
-    messages.error(request, 'Added 20 {0}'.format(item), extra_tags='alert')
+    messages.error(request, "Added 20 {0}".format(item), extra_tags="alert")
     return redirect(reverse("shop"))
+
 
 def minus_round_tube(request, id):
     item = get_object_or_404(RoundTube, pk=id)
     minus_tube_stock(item)
-    messages.error(request, 'Minus 20 {0}'.format(item), extra_tags='alert')
+    messages.error(request, "Minus 20 {0}".format(item), extra_tags="alert")
     return redirect(reverse("shop"))
+
 
 def delete_round_tube(request, pk=id):
     instance = RoundTube.objects.get(pk=pk)
     title = get_edit_name(instance)
-    messages.error(request, 'Deleted {0}'.format(title), extra_tags='alert')
+    messages.error(request, "Deleted {0}".format(title), extra_tags="alert")
     instance.delete()
     return redirect(reverse("shop"))
 
@@ -256,11 +295,14 @@ def add_vtip(request):
             vtip.name = title
             vtip.ton = "Tubes"
             vtip.save()
-            messages.error(request, 'Added {0} to VTips'.format(title), extra_tags='alert')
+            messages.error(
+                request, "Added {0} to VTips".format(title), extra_tags="alert"
+            )
             return redirect("shop")
     else:
         vtip_form = VtipForm()
     return render(request, "add_vtip.html", {"vtip_form": vtip_form})
+
 
 def edit_vtip(request, id):
     item = get_object_or_404(Vtip, pk=id)
@@ -269,28 +311,31 @@ def edit_vtip(request, id):
         if vtip_form.is_valid():
             vtip_form.save()
             title = get_edit_name(item)
-            messages.error(request, 'Edited {0}'.format(title), extra_tags='alert')
+            messages.error(request, "Edited {0}".format(title), extra_tags="alert")
             return redirect("shop")
     else:
         vtip_form = EditVtipForm(instance=item)
     return render(request, "edit_vtip.html", {"vtip_form": vtip_form, "item": item})
 
+
 def plus_vtip(request, id):
     item = get_object_or_404(Vtip, pk=id)
     plus_tube_stock(item)
-    messages.error(request, 'Added 20 {0}'.format(item), extra_tags='alert')
+    messages.error(request, "Added 20 {0}".format(item), extra_tags="alert")
     return redirect(reverse("shop"))
+
 
 def minus_vtip(request, id):
     item = get_object_or_404(Vtip, pk=id)
     minus_tube_stock(item)
-    messages.error(request, 'Minus 20 {0}'.format(item), extra_tags='alert')
+    messages.error(request, "Minus 20 {0}".format(item), extra_tags="alert")
     return redirect(reverse("shop"))
-    
+
+
 def delete_vtip(request, pk=id):
     instance = Vtip.objects.get(pk=pk)
     title = get_edit_name(instance)
-    messages.error(request, 'Deleted {0}'.format(title), extra_tags='alert')
+    messages.error(request, "Deleted {0}".format(title), extra_tags="alert")
     instance.delete()
     return redirect(reverse("shop"))
 
@@ -309,7 +354,9 @@ def add_flat(request):
             flat.name = title
             flat.ton = "Tubes"
             flat.save()
-            messages.error(request, 'Added {0} to Flats'.format(title), extra_tags='alert')
+            messages.error(
+                request, "Added {0} to Flats".format(title), extra_tags="alert"
+            )
             return redirect("shop")
     else:
         flat_form = FlatForm()
@@ -323,55 +370,94 @@ def edit_flat(request, id):
         if flat_form.is_valid():
             flat_form.save()
             title = get_edit_name(item)
-            messages.error(request, 'Edited {0}'.format(title), extra_tags='alert')
+            messages.error(request, "Edited {0}".format(title), extra_tags="alert")
             return redirect("shop")
     else:
         flat_form = EditFlatForm(instance=item)
     return render(request, "edit_flat.html", {"flat_form": flat_form, "item": item})
 
+
 def plus_flat(request, id):
     item = get_object_or_404(Flat, pk=id)
     plus_tube_stock(item)
-    messages.error(request, 'Added 20 {0}'.format(item), extra_tags='alert')
+    messages.error(request, "Added 20 {0}".format(item), extra_tags="alert")
     return redirect(reverse("shop"))
+
 
 def minus_flat(request, id):
     item = get_object_or_404(Flat, pk=id)
     minus_tube_stock(item)
-    messages.error(request, 'Minus 20 {0}'.format(item), extra_tags='alert')
+    messages.error(request, "Minus 20 {0}".format(item), extra_tags="alert")
     return redirect(reverse("shop"))
+
 
 def delete_flat(request, pk=id):
     instance = Flat.objects.get(pk=pk)
     title = get_edit_name(instance)
-    messages.error(request, 'Deleted {0}'.format(title), extra_tags='alert')
+    messages.error(request, "Deleted {0}".format(title), extra_tags="alert")
     instance.delete()
     return redirect(reverse("shop"))
 
 
-"""
-Helper Functions
-"""
+# Stock Helpers
+
+
+def get_all_stock(request):
+    rounds = Round.objects.order_by("name")
+    shaders = Shader.objects.order_by("name")
+    mags = Mag.objects.order_by("name")
+    tubes = RoundTube.objects.order_by("name")
+    vtips = Vtip.objects.order_by("name")
+    flats = Flat.objects.order_by("name")
+
+    round_list = unpack_stock(rounds)
+    shader_list = unpack_stock(shaders)
+    mag_list = unpack_stock(mags)
+    tube_list = unpack_stock(tubes)
+    vtip_list = unpack_stock(vtips)
+    flat_list = unpack_stock(flats)
+
+    print("rounds", round_list)
+    print("shaders", shader_list)
+    print("mags", mag_list)
+    print("tubes", tube_list)
+    print("vtips", vtip_list)
+    print("flat_list", flat_list)   
+    return redirect(reverse("shop"))
+
+def unpack_stock(x):
+    name_list = ([y.name for y in x])
+    stock_list = ([y.stock for y in x])
+    full_list = dict(zip(name_list, stock_list))
+    return full_list
+
+
+# Helper Functions
+
 
 def get_edit_name(x):
     size = str(x.size)
     liner = x.liner
     title = size + liner
-    return title  
+    return title
 
 
 def plus_needle_stock(x):
     x.stock += 50
     x.save()
 
+
 def minus_needle_stock(x):
     x.stock -= 50
     x.save()
+
 
 def plus_tube_stock(x):
     x.stock += 20
     x.save()
 
+
 def minus_tube_stock(x):
     x.stock -= 20
     x.save()
+
