@@ -30,6 +30,9 @@ def shop(request):
     return render(request, "shop.html", {"rounds": rounds, "shaders": shaders, "mags": mags, "tubes": tubes, "vtips": vtips, "flats":flats})
 
 
+# Rounds
+
+
 def add_round(request):
     if request.method == "POST":
         round_form = RoundForm(request.POST)
@@ -47,7 +50,6 @@ def add_round(request):
         round_form = RoundForm()
     return render(request, "add_round.html", {"round_form": round_form})  
 
-
 def edit_round(request, id):
     item = get_object_or_404(Round, pk=id)
     if request.method == "POST":
@@ -61,31 +63,17 @@ def edit_round(request, id):
         round_form = EditRoundForm(instance=item)
     return render(request, "edit_round.html", {"round_form": round_form, "item": item})
 
-def plus_stock(x):
-    x.stock += 1
-    x.save()
-
-def minus_stock(x):
-    x.stock -= 1
-    x.save()
-
-#def get_edit_name(x):
-#    size = str(x.size)
-#    liner = x.liner
-#    title = size + liner
-#    return title  
-
 def plus_round(request, id):
     item = get_object_or_404(Round, pk=id)
-    plus_stock(item)
+    plus_needle_stock(item)
+    messages.error(request, 'Added 50 {0}'.format(item), extra_tags='alert')
     return redirect(reverse("shop"))
 
 def minus_round(request, id):
     item = get_object_or_404(Round, pk=id)
-    minus_stock(item)
+    minus_needle_stock(item)
+    messages.error(request, 'Minus 50 {0}'.format(item), extra_tags='alert')
     return redirect(reverse("shop"))
-
-
 
 def delete_round(request, pk=id):
     instance = Round.objects.get(pk=pk)
@@ -93,6 +81,9 @@ def delete_round(request, pk=id):
     messages.error(request, 'Deleted {0}'.format(title), extra_tags='alert')
     instance.delete()
     return redirect(reverse("shop"))
+
+
+# Shaders
 
 
 def add_shader(request):
@@ -112,7 +103,6 @@ def add_shader(request):
         shader_form = ShaderForm()
     return render(request, "add_shader.html", {"shader_form": shader_form})
 
-
 def edit_shader(request, id):
     item = get_object_or_404(Shader, pk=id)
     if request.method == "POST":
@@ -126,6 +116,17 @@ def edit_shader(request, id):
         shader_form = EditShaderForm(instance=item)
     return render(request, "edit_shader.html", {"shader_form": shader_form, "item": item})
 
+def plus_shader(request, id):
+    item = get_object_or_404(Shader, pk=id)
+    plus_needle_stock(item)
+    messages.error(request, 'Added 50 {0}'.format(item), extra_tags='alert')
+    return redirect(reverse("shop"))
+
+def minus_shader(request, id):
+    item = get_object_or_404(Shader, pk=id)
+    minus_needle_stock(item)
+    messages.error(request, 'minus 50 {0}'.format(item), extra_tags='alert')
+    return redirect(reverse("shop"))
 
 def delete_shader(request, pk=id):
     instance = Shader.objects.get(pk=pk)
@@ -133,6 +134,9 @@ def delete_shader(request, pk=id):
     messages.error(request, 'Deleted {0}'.format(title), extra_tags='alert')
     instance.delete()
     return redirect(reverse("shop"))
+
+
+# Mags
 
 
 def add_mag(request):
@@ -152,7 +156,6 @@ def add_mag(request):
         mag_form = MagForm()
     return render(request, "add_mag.html", {"mag_form": mag_form})
 
-
 def edit_mag(request, id):
     item = get_object_or_404(Mag, pk=id)
     if request.method == "POST":
@@ -166,6 +169,17 @@ def edit_mag(request, id):
         mag_form = EditMagForm(instance=item)
     return render(request, "edit_mag.html", {"mag_form": mag_form, "item": item})
 
+def plus_mag(request, id):
+    item = get_object_or_404(Mag, pk=id)
+    plus_needle_stock(item)
+    messages.error(request, 'Added 50 {0}'.format(item), extra_tags='alert')
+    return redirect(reverse("shop"))
+
+def minus_mag(request, id):
+    item = get_object_or_404(Mag, pk=id)
+    minus_needle_stock(item)
+    messages.error(request, 'Minus 50 {0}'.format(item), extra_tags='alert')
+    return redirect(reverse("shop"))
 
 def delete_mag(request, pk=id):
     instance = Mag.objects.get(pk=pk)
@@ -173,6 +187,9 @@ def delete_mag(request, pk=id):
     messages.error(request, 'Deleted {0}'.format(title), extra_tags='alert')
     instance.delete()
     return redirect(reverse("shop"))
+
+
+# Round Tube
 
 
 def add_round_tube(request):
@@ -192,7 +209,6 @@ def add_round_tube(request):
         round_form = RoundTubeForm()
     return render(request, "add_round_tube.html", {"round_form": round_form})
 
-
 def edit_round_tube(request, id):
     item = get_object_or_404(RoundTube, pk=id)
     if request.method == "POST":
@@ -206,6 +222,17 @@ def edit_round_tube(request, id):
         round_form = EditRoundTubeForm(instance=item)
     return render(request, "edit_round_tube.html", {"round_form": round_form, "item": item})
 
+def plus_round_tube(request, id):
+    item = get_object_or_404(RoundTube, pk=id)
+    plus_tube_stock(item)
+    messages.error(request, 'Added 20 {0}'.format(item), extra_tags='alert')
+    return redirect(reverse("shop"))
+
+def minus_round_tube(request, id):
+    item = get_object_or_404(RoundTube, pk=id)
+    minus_tube_stock(item)
+    messages.error(request, 'Minus 20 {0}'.format(item), extra_tags='alert')
+    return redirect(reverse("shop"))
 
 def delete_round_tube(request, pk=id):
     instance = RoundTube.objects.get(pk=pk)
@@ -213,6 +240,10 @@ def delete_round_tube(request, pk=id):
     messages.error(request, 'Deleted {0}'.format(title), extra_tags='alert')
     instance.delete()
     return redirect(reverse("shop"))
+
+
+# Vtips
+
 
 def add_vtip(request):
     if request.method == "POST":
@@ -231,7 +262,6 @@ def add_vtip(request):
         vtip_form = VtipForm()
     return render(request, "add_vtip.html", {"vtip_form": vtip_form})
 
-
 def edit_vtip(request, id):
     item = get_object_or_404(Vtip, pk=id)
     if request.method == "POST":
@@ -245,13 +275,27 @@ def edit_vtip(request, id):
         vtip_form = EditVtipForm(instance=item)
     return render(request, "edit_vtip.html", {"vtip_form": vtip_form, "item": item})
 
+def plus_vtip(request, id):
+    item = get_object_or_404(Vtip, pk=id)
+    plus_tube_stock(item)
+    messages.error(request, 'Added 20 {0}'.format(item), extra_tags='alert')
+    return redirect(reverse("shop"))
 
+def minus_vtip(request, id):
+    item = get_object_or_404(Vtip, pk=id)
+    minus_tube_stock(item)
+    messages.error(request, 'Minus 20 {0}'.format(item), extra_tags='alert')
+    return redirect(reverse("shop"))
+    
 def delete_vtip(request, pk=id):
     instance = Vtip.objects.get(pk=pk)
     title = get_edit_name(instance)
     messages.error(request, 'Deleted {0}'.format(title), extra_tags='alert')
     instance.delete()
     return redirect(reverse("shop"))
+
+
+# Flats
 
 
 def add_flat(request):
@@ -285,6 +329,17 @@ def edit_flat(request, id):
         flat_form = EditFlatForm(instance=item)
     return render(request, "edit_flat.html", {"flat_form": flat_form, "item": item})
 
+def plus_flat(request, id):
+    item = get_object_or_404(Flat, pk=id)
+    plus_tube_stock(item)
+    messages.error(request, 'Added 20 {0}'.format(item), extra_tags='alert')
+    return redirect(reverse("shop"))
+
+def minus_flat(request, id):
+    item = get_object_or_404(Flat, pk=id)
+    minus_tube_stock(item)
+    messages.error(request, 'Minus 20 {0}'.format(item), extra_tags='alert')
+    return redirect(reverse("shop"))
 
 def delete_flat(request, pk=id):
     instance = Flat.objects.get(pk=pk)
@@ -292,7 +347,6 @@ def delete_flat(request, pk=id):
     messages.error(request, 'Deleted {0}'.format(title), extra_tags='alert')
     instance.delete()
     return redirect(reverse("shop"))
-
 
 
 """
@@ -304,3 +358,20 @@ def get_edit_name(x):
     liner = x.liner
     title = size + liner
     return title  
+
+
+def plus_needle_stock(x):
+    x.stock += 50
+    x.save()
+
+def minus_needle_stock(x):
+    x.stock -= 50
+    x.save()
+
+def plus_tube_stock(x):
+    x.stock += 20
+    x.save()
+
+def minus_tube_stock(x):
+    x.stock -= 20
+    x.save()

@@ -44,6 +44,7 @@
     -o-transition: all 0.35s ease-in-out;
 }
 
+.stock-line-item a:hover,
 .add-links:hover {
     color: rgba(146, 240, 146, 0.867);
     text-decoration: none;
@@ -52,6 +53,14 @@
 .stock-line-item {
     font-size: 22px;
     padding: 12px;
+}
+
+.stock-line-item a {
+    color: forestgreen;
+    transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    -webkit-transition: all 0.35s ease-in-out;
+    -o-transition: all 0.35s ease-in-out;
 }
 
 .stock-line-buttons {

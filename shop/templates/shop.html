@@ -72,7 +72,7 @@
         <p class="stock-line-item">Name: {{ s.name }}</p>
     </div>
     <div class="col-4">
-        <p class="stock-line-item">Stock: {{ s.stock }}</p>
+        <p class="stock-line-item">Stock: {{ s.stock }} <a href="{% url 'plus_shader' s.id %}"><span><i class="fas fa-plus"></i></span></a><a href="{% url 'minus_shader' s.id %}"> <span><i class="fas fa-minus"></i></span></a></p>
     </div>
     <div class="col-4">
         <div class="stock-line-buttons">
@@ -113,7 +113,7 @@
         <p class="stock-line-item">Name: {{ m.name }}</p>
     </div>
     <div class="col-4">
-        <p class="stock-line-item">Stock: {{ m.stock }}</p>
+        <p class="stock-line-item">Stock: {{ m.stock }} <a href="{% url 'plus_mag' m.id %}"><span><i class="fas fa-plus"></i></span></a><a href="{% url 'minus_mag' m.id %}"> <span><i class="fas fa-minus"></i></span></a></p>
     </div>
     <div class="col-4">
         <div class="stock-line-buttons">
@@ -159,7 +159,7 @@
         <p class="stock-line-item">Name: {{ t.name }}</p>
     </div>
     <div class="col-4">
-        <p class="stock-line-item">Stock: {{ t.stock }}</p>
+        <p class="stock-line-item">Stock: {{ t.stock }} <a href="{% url 'plus_round_tube' t.id %}"><span><i class="fas fa-plus"></i></span></a><a href="{% url 'minus_round_tube' t.id %}"> <span><i class="fas fa-minus"></i></span></a></p>
     </div>
     <div class="col-4">
         <div class="stock-line-buttons">
@@ -201,7 +201,7 @@
         <p class="stock-line-item">Name: {{ v.name }}</p>
     </div>
     <div class="col-4">
-        <p class="stock-line-item">Stock: {{ v.stock }}</p>
+        <p class="stock-line-item">Stock: {{ v.stock }} <a href="{% url 'plus_vtip' v.id %}"><span><i class="fas fa-plus"></i></span></a><a href="{% url 'minus_vtip' v.id %}"> <span><i class="fas fa-minus"></i></span></a></p>
     </div>
     <div class="col-4">
         <div class="stock-line-buttons">
@@ -244,7 +244,7 @@
         <p class="stock-line-item">Name: {{ f.name }}</p>
     </div>
     <div class="col-4">
-        <p class="stock-line-item">Stock: {{ f.stock }}</p>
+        <p class="stock-line-item">Stock: {{ f.stock }} <a href="{% url 'plus_flat' f.id %}"><span><i class="fas fa-plus"></i></span></a><a href="{% url 'minus_flat' f.id %}"> <span><i class="fas fa-minus"></i></span></a></p>
     </div>
     <div class="col-4">
         <div class="stock-line-buttons">
