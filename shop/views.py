@@ -437,6 +437,16 @@ def save_stock_report(request):
     vtips = Vtip.objects.order_by("name")
     flats = Flat.objects.order_by("name")
 
+    lastreport = StockObject.objects.order_by("name").values('name', 'id')
+
+    # This Lists any previous stockobjects before adding the new ones
+    # Maybe add an archieve boolen true/false to the model
+    # so that in the for look @ 471 it only adds new objects
+    # to maybe a new list? Comparing via names (not ids as they add new ones)
+    # 
+
+    print("Report: ", lastreport)
+
     save_stock_items(rounds)
     save_stock_items(shaders)
     save_stock_items(mags)
@@ -444,21 +454,27 @@ def save_stock_report(request):
     save_stock_items(vtips)
     save_stock_items(flats)
 
-    stockobjects = StockObject.objects.order_by("name")
+
+    stockobjects = StockObject.objects.order_by("name") 
+
+    #print(stockobjects)
+
+    #non_save_list = unpack_stock(lastreport)
+
+    #print(non_save_list)
 
     stock_form = StockForm()
     stock = stock_form.save(commit=False)
     date = datetime.datetime.now()
     stock.date = date
     stock.save()
-    print(stock)
+    print("Stock: ", stock)
 
     for s in stockobjects:
         pk = s.id
         item = StockObject.objects.get(id=pk)
-        print(item)
         stock.stockitems.add(item)
-        print(stock.stockitems)
+        
 
     return redirect(reverse("shop")) 
 
@@ -470,10 +486,8 @@ def save_stock_items(x):
         stock = y.stock
         sitem.name = name
         sitem.stock = stock
-        print("new", sitem)
+        # print("new", sitem)
         sitem.save()
-
-
 
 
 def unpack_stock(x):
@@ -481,7 +495,7 @@ def unpack_stock(x):
     name = ([y.name for y in x])
     stock = ([y.stock for y in x])
     full_dict = dict(zip(name, stock))
-    return name, stock
+    return full_dict
 
 
 # Helper Functions
