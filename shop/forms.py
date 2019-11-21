@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Flat, Round, RoundTube, Shader, Mag, Vtip
+from .models import Flat, Round, RoundTube, Shader, StockReport, StockObject, Mag, Vtip
 
 class RoundForm(forms.ModelForm):
 
@@ -77,3 +77,15 @@ class EditFlatForm(forms.ModelForm):
     class Meta:
         model = Flat
         exclude = ['name', 'liner', 'size', 'ton']
+
+class StockForm(forms.ModelForm):
+
+    class Meta:
+        model = StockReport
+        fields = '__all__'
+
+class StockObjectForm(forms.ModelForm):
+
+    class Meta:
+        model = StockObject
+        fields = '__all__'

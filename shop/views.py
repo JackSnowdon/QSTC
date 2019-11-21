@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
-from .models import Flat, Round, RoundTube, Shader, Mag, Vtip
+from .models import Flat, Round, RoundTube, Shader, StockReport, StockObject, Mag, Vtip
 from .forms import (
     EditFlatForm,
     EditRoundForm,
@@ -11,10 +11,13 @@ from .forms import (
     FlatForm,
     RoundForm,
     RoundTubeForm,
+    StockForm,
+    StockObjectForm,
     ShaderForm,
     MagForm,
     VtipForm,
 )
+import datetime
 
 
 # Create your views here.
@@ -410,6 +413,7 @@ def get_all_stock(request):
     tubes = RoundTube.objects.values('name', 'stock').order_by("name")
     vtips = Vtip.objects.values('name', 'stock').order_by("name")
     flats = Flat.objects.values('name', 'stock').order_by("name")
+
     return render(
         request,
         "stock.html",
@@ -422,17 +426,62 @@ def get_all_stock(request):
             "flats": flats,
         },
     )
-    print(rounds)
-    print(shaders) 
 
-    return render(
-        request,
-        "stock.html",
-        {
-            "rounds": rounds,
-        },
-    )
 
+def save_stock_report(request):
+
+    rounds = Round.objects.order_by("name")
+    shaders = Shader.objects.order_by("name")
+    mags = Mag.objects.order_by("name")
+    tubes = RoundTube.objects.order_by("name")
+    vtips = Vtip.objects.order_by("name")
+    flats = Flat.objects.order_by("name")
+
+    save_stock_items(rounds)
+    save_stock_items(shaders)
+    save_stock_items(mags)
+    save_stock_items(tubes)
+    save_stock_items(vtips)
+    save_stock_items(flats)
+
+    stockobjects = StockObject.objects.order_by("name")
+
+    stock_form = StockForm()
+    stock = stock_form.save(commit=False)
+    date = datetime.datetime.now()
+    stock.date = date
+    stock.save()
+    print(stock)
+
+    for s in stockobjects:
+        pk = s.id
+        item = StockObject.objects.get(id=pk)
+        print(item)
+        stock.stockitems.add(item)
+        print(stock.stockitems)
+
+    return redirect(reverse("shop")) 
+
+def save_stock_items(x):
+    for y in x:
+        stock_item = StockObjectForm()
+        sitem = stock_item.save(commit=False)
+        name = y.name
+        stock = y.stock
+        sitem.name = name
+        sitem.stock = stock
+        print("new", sitem)
+        sitem.save()
+
+
+
+
+def unpack_stock(x):
+
+    name = ([y.name for y in x])
+    stock = ([y.stock for y in x])
+    full_dict = dict(zip(name, stock))
+    return name, stock
 
 
 # Helper Functions

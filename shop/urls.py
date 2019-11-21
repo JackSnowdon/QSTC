@@ -31,12 +31,14 @@ from .views import (
     plus_mag,
     plus_vtip,
     plus_flat,
+    save_stock_report,
     shop,
 )
 
 urlpatterns = [
     path("shop/", shop, name="shop"),
     path("get_all_stock/", get_all_stock, name="get_all_stock"),
+    path("save_stock_report/", save_stock_report, name="save_stock_report"),
     path("add_round/", add_round, name="add_round"),
     path("add_round_tube/", add_round_tube, name="add_round_tube"),
     path("add_mag/", add_mag, name="add_mag"),

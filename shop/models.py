@@ -1,4 +1,6 @@
 from django.db import models
+import datetime
+from django.utils import timezone
 
 # Create your models here.
 
@@ -81,3 +83,19 @@ class Flat(models.Model):
 
     def __str__(self):
         return self.name
+
+class StockObject(models.Model):
+    name = models.CharField(max_length=50)
+    stock = models.IntegerField()
+
+    def __str__(self):
+        return '{0} x {1}'.format(self.name, self.stock)
+
+
+class StockReport(models.Model):
+    date = models.DateTimeField(auto_now=True)
+    stockitems = models.ManyToManyField(StockObject)
+    
+
+    def __str__(self):  
+        return 'Stock Report {0} Completed on {1}'.format(self.id, self.date.date())

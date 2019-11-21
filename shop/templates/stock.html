@@ -4,6 +4,8 @@
 <a href="{% url 'shop' %}" role="button" class="btn btn-warning" id="back" aria-disabled="false">Back To Shop</a>
 <br>
 <br>
+<br>
+<br>
 
 
 
@@ -59,7 +61,7 @@
 <br>
 <div class="row">
     <div class="col-4">
-        <h3>Rounds:</h3>
+        <h3>Round Tubes:</h3>
         {% for t in tubes %}
         <ul>
             <li>
@@ -73,7 +75,7 @@
     <br>
 
     <div class="col-4">
-        <h3>Shaders:</h3>
+        <h3>Vtips:</h3>
         {% for v in vtips %}
         <ul>
             <li>
@@ -85,9 +87,8 @@
     <br>
     <br>
 
-
     <div class="col-4">
-        <h3>Mags:</h3>
+        <h3>Flats:</h3>
         {% for f in flats %}
         <ul>
             <li>
@@ -99,7 +100,7 @@
 </div>
 
 <div class="text-center">
-    <a href="#" role="button" class="btn btn-warning" id="all-stock" aria-disabled="false">Confirm and Save Stock</a>
+    <a href="{% url 'save_stock_report' %}" role="button" class="btn btn-warning" id="all-stock" aria-disabled="false">Confirm and Save Stock</a>
 </div>
 
 <br>
