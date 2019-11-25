@@ -430,22 +430,14 @@ def get_all_stock(request):
 
 def save_stock_report(request):
 
+    # Gets all query sets and creates stock object instance for each one
+
     rounds = Round.objects.order_by("name")
     shaders = Shader.objects.order_by("name")
     mags = Mag.objects.order_by("name")
     tubes = RoundTube.objects.order_by("name")
     vtips = Vtip.objects.order_by("name")
     flats = Flat.objects.order_by("name")
-
-    lastreport = StockObject.objects.order_by("name").values('name', 'id')
-
-    # This Lists any previous stockobjects before adding the new ones
-    # Maybe add an archieve boolen true/false to the model
-    # so that in the for look @ 471 it only adds new objects
-    # to maybe a new list? Comparing via names (not ids as they add new ones)
-    # 
-
-    print("Report: ", lastreport)
 
     save_stock_items(rounds)
     save_stock_items(shaders)
@@ -454,27 +446,23 @@ def save_stock_report(request):
     save_stock_items(vtips)
     save_stock_items(flats)
 
+    # Creates query only with new unarchived stockobjects
 
-    stockobjects = StockObject.objects.order_by("name") 
-
-    #print(stockobjects)
-
-    #non_save_list = unpack_stock(lastreport)
-
-    #print(non_save_list)
+    stockobjects = StockObject.objects.order_by("name").filter(archive=False)
 
     stock_form = StockForm()
     stock = stock_form.save(commit=False)
     date = datetime.datetime.now()
     stock.date = date
     stock.save()
-    print("Stock: ", stock)
 
     for s in stockobjects:
         pk = s.id
         item = StockObject.objects.get(id=pk)
+        item.archive = True
+        print(item.name, item.stock)
         stock.stockitems.add(item)
-        
+        stock.save()
 
     return redirect(reverse("shop")) 
 
@@ -486,12 +474,10 @@ def save_stock_items(x):
         stock = y.stock
         sitem.name = name
         sitem.stock = stock
-        # print("new", sitem)
         sitem.save()
 
 
 def unpack_stock(x):
-
     name = ([y.name for y in x])
     stock = ([y.stock for y in x])
     full_dict = dict(zip(name, stock))
