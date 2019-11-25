@@ -415,16 +415,6 @@ def get_all_stock(request):
     flats = Flat.objects.values('name', 'stock').order_by("name")
     reports = StockReport.objects.all()
 
-    # Stock reports saving correctly, refactor below code into single detail style view
-    
-    
-    for r in reports:
-        number = r.id
-        items = StockObject.objects.filter(report_number=number)
-        for i in items:
-            print(i.name, i.stock)
-
-
     return render(
         request,
         "stock.html",
@@ -438,6 +428,13 @@ def get_all_stock(request):
             "reports": reports,
         },
     )
+
+
+def check_report(request, id):
+    reports = StockObject.objects.filter(report_number=id)
+    report = StockReport.objects.get(id=id)
+
+    return render(request, "single_report.html", {"reports": reports, "report": report})
 
 
 def save_stock_report(request):

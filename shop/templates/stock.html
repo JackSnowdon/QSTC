@@ -8,8 +8,8 @@
 <br>
 
 {% for r in reports %}
-{{ r.id }}
 
+<a href="{% url 'check_report' r.id %}">{{ r.id }}</a>
 {% endfor %}
 
 

@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% load static %} {% block page_title %} QTSC - Report {% endblock %}
+
+{% block content %}
+
+<h3>Report Created On: {{ report.date }}</h3>
+<h5>Report ID: {{ report.id }}</h5>
+{% for r in reports %}
+
+<p>{{ r.date }}</p>
+<p>Name: {{ r.name }} Stock: {{ r.stock }}</p>
+
+{% endfor %}
+
+{% endblock %}

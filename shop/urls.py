@@ -6,6 +6,7 @@ from .views import (
     add_shader,
     add_mag,
     add_vtip,
+    check_report,
     delete_flat,
     delete_round,
     delete_round_tube,
@@ -45,6 +46,7 @@ urlpatterns = [
     path("add_shader/", add_shader, name="add_shader"),
     path("add_vtip/", add_vtip, name="add_vtip"),
     path("add_flat/", add_flat, name="add_flat"),
+    path(r"check_report/<int:id>", check_report, name="check_report"),
     path(r"edit_round/<int:id>", edit_round, name="edit_round"),
     path(r"edit_shader/<int:id>", edit_shader, name="edit_shader"),
     path(r"edit_mag/<int:id>", edit_mag, name="edit_mag"),
@@ -69,4 +71,5 @@ urlpatterns = [
     path(r"plus_round_tube/<int:id>", plus_round_tube, name="plus_round_tube"),
     path(r"plus_flat/<int:id>", plus_flat, name="plus_flat"),
     path(r"plus_vtip/<int:id>", plus_vtip, name="plus_vtip"),
+    
 ]
