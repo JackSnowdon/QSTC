@@ -83,20 +83,19 @@ class Flat(models.Model):
 
     def __str__(self):
         return self.name
+        
+
+class StockReport(models.Model):
+    date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):  
+        return 'Stock Report {0} Completed on {1}'.format(self.id, self.date.date())
+
 
 class StockObject(models.Model):
     name = models.CharField(max_length=50)
     stock = models.IntegerField()
-    archive = models.BooleanField(default=False)
+    report_number = models.ForeignKey(StockReport, on_delete=models.CASCADE)
 
     def __str__(self):
         return '{0} x {1}'.format(self.name, self.stock)
-
-
-class StockReport(models.Model):
-    date = models.DateTimeField(auto_now=True)
-    stockitems = models.ManyToManyField(StockObject)
-    
-
-    def __str__(self):  
-        return 'Stock Report {0} Completed on {1}'.format(self.id, self.date.date())

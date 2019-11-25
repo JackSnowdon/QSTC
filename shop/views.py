@@ -413,6 +413,17 @@ def get_all_stock(request):
     tubes = RoundTube.objects.values('name', 'stock').order_by("name")
     vtips = Vtip.objects.values('name', 'stock').order_by("name")
     flats = Flat.objects.values('name', 'stock').order_by("name")
+    reports = StockReport.objects.all()
+
+    # Stock reports saving correctly, refactor below code into single detail style view
+    
+    
+    for r in reports:
+        number = r.id
+        items = StockObject.objects.filter(report_number=number)
+        for i in items:
+            print(i.name, i.stock)
+
 
     return render(
         request,
@@ -424,13 +435,22 @@ def get_all_stock(request):
             "tubes": tubes,
             "vtips": vtips,
             "flats": flats,
+            "reports": reports,
         },
     )
 
 
 def save_stock_report(request):
 
-    # Gets all query sets and creates stock object instance for each one
+    stock_form = StockForm()
+    stock = stock_form.save(commit=False)
+    date = datetime.datetime.now()
+    stock.date = date
+    stock.save()
+
+    print("ID:", stock.id)
+
+    report_no = stock.id
 
     rounds = Round.objects.order_by("name")
     shaders = Shader.objects.order_by("name")
@@ -439,41 +459,26 @@ def save_stock_report(request):
     vtips = Vtip.objects.order_by("name")
     flats = Flat.objects.order_by("name")
 
-    save_stock_items(rounds)
-    save_stock_items(shaders)
-    save_stock_items(mags)
-    save_stock_items(tubes)
-    save_stock_items(vtips)
-    save_stock_items(flats)
+    save_stock_items(rounds, report_no)
+    save_stock_items(shaders, report_no)
+    save_stock_items(mags, report_no)
+    save_stock_items(tubes, report_no)
+    save_stock_items(vtips, report_no)
+    save_stock_items(flats, report_no)
 
-    # Creates query only with new unarchived stockobjects
-
-    stockobjects = StockObject.objects.order_by("name").filter(archive=False)
-
-    stock_form = StockForm()
-    stock = stock_form.save(commit=False)
-    date = datetime.datetime.now()
-    stock.date = date
     stock.save()
-
-    for s in stockobjects:
-        pk = s.id
-        item = StockObject.objects.get(id=pk)
-        item.archive = True
-        print(item.name, item.stock)
-        stock.stockitems.add(item)
-        stock.save()
 
     return redirect(reverse("shop")) 
 
-def save_stock_items(x):
+def save_stock_items(x, z):
     for y in x:
         stock_item = StockObjectForm()
         sitem = stock_item.save(commit=False)
         name = y.name
-        stock = y.stock
+        s = y.stock
         sitem.name = name
-        sitem.stock = stock
+        sitem.stock = s
+        sitem.report_number = StockReport.objects.get(id=z)
         sitem.save()
 
 
