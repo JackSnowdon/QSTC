@@ -413,7 +413,7 @@ def get_all_stock(request):
     tubes = RoundTube.objects.values('name', 'stock').order_by("name")
     vtips = Vtip.objects.values('name', 'stock').order_by("name")
     flats = Flat.objects.values('name', 'stock').order_by("name")
-    reports = StockReport.objects.all()
+    reports = StockReport.objects.order_by("-date")
 
     return render(
         request,

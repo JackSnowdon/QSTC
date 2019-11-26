@@ -2,12 +2,33 @@
 
 {% block content %}
 
-<h3>Report Created On: {{ report.date }}</h3>
-<h5>Report ID: {{ report.id }}</h5>
+
+<div class="row text-center">
+    <div class="col-12">
+        <h3>Report Created On: {{ report.date }}</br>
+            <br>
+            Report Number: {{ report.id }}</h3>
+    </div>
+</div>
+
+
+
+<a href="{% url 'get_all_stock' %}" role="button" class="btn btn-warning" id="back" aria-disabled="false">Back To Stock</a> 
+<br>
+<br>
+
 {% for r in reports %}
 
-<p>{{ r.date }}</p>
-<p>Name: {{ r.name }} Stock: {{ r.stock }}</p>
+<div class="row stock-line">
+    <div class="col-6">
+        <p class="stock-line-item">Name: {{ r.name }}</p>
+    </div>
+    <div class="col-6">
+        <p class="stock-line-item">Stock: {{ r.stock }}</p>
+    </div>
+</div>
+
+<br>
 
 {% endfor %}
 

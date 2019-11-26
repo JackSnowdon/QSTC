@@ -6,14 +6,6 @@
 <br>
 <br>
 <br>
-
-{% for r in reports %}
-
-<a href="{% url 'check_report' r.id %}">{{ r.id }}</a>
-{% endfor %}
-
-
-
 <h2>Needles</h2>
 <hr class="bar-thin">
 
@@ -21,13 +13,13 @@
 <div class="row">
     <div class="col-4">
         <h3>Rounds:</h3>
-        {% for r in rounds %}
         <ul>
-            <li>
+            {% for r in rounds %}
+            <li class="list-padding">
                 {{ r.name }}: Stock = {{ r.stock }}
             </li>
+            {% endfor %}
         </ul>
-        {% endfor %}
     </div>
 
     <br>
@@ -35,13 +27,14 @@
 
     <div class="col-4">
         <h3>Shaders:</h3>
-        {% for s in shaders %}
         <ul>
-            <li>
+            {% for s in shaders %}
+            <li class="list-padding">
                 {{ s.name }}: Stock = {{ s.stock }}
             </li>
+
+            {% endfor %}
         </ul>
-        {% endfor %}
     </div>
     <br>
     <br>
@@ -49,13 +42,13 @@
 
     <div class="col-4">
         <h3>Mags:</h3>
-        {% for m in mags %}
         <ul>
-            <li>
+            {% for m in mags %}
+            <li class="list-padding">
                 {{ m.name }}: Stock = {{ m.stock }}
             </li>
+            {% endfor %}
         </ul>
-        {% endfor %}
     </div>
 </div>
 
@@ -67,13 +60,13 @@
 <div class="row">
     <div class="col-4">
         <h3>Round Tubes:</h3>
-        {% for t in tubes %}
         <ul>
-            <li>
+            {% for t in tubes %}
+            <li class="list-padding">
                 {{ t.name }}: Stock = {{ t.stock }}
             </li>
+            {% endfor %}
         </ul>
-        {% endfor %}
     </div>
 
     <br>
@@ -81,34 +74,53 @@
 
     <div class="col-4">
         <h3>Vtips:</h3>
-        {% for v in vtips %}
         <ul>
-            <li>
+            {% for v in vtips %}
+            <li class="list-padding">
                 {{ v.name }}: Stock = {{ v.stock }}
             </li>
+            {% endfor %}
         </ul>
-        {% endfor %}
     </div>
     <br>
     <br>
 
     <div class="col-4">
         <h3>Flats:</h3>
-        {% for f in flats %}
         <ul>
-            <li>
+            {% for f in flats %}
+            <li class="list-padding">
                 {{ f.name }}: Stock = {{ f.stock }}
             </li>
+            {% endfor %}
         </ul>
-        {% endfor %}
     </div>
 </div>
 
+<br>
+
 <div class="text-center">
-    <a href="{% url 'save_stock_report' %}" role="button" class="btn btn-warning" id="all-stock" aria-disabled="false">Confirm and Save Stock</a>
+    <a href="{% url 'save_stock_report' %}" role="button" class="btn btn-warning" id="all-stock"
+        aria-disabled="false">Confirm and Save Stock</a>
 </div>
 
 <br>
 <br>
+
+<h2 class="text-center">Past Reports</h2>
+<br>
+
+<div class="row">
+    <ul class="report-list">
+        {% for r in reports %}
+        <li class="list-padding">
+            <h4>Report Number: <a href="{% url 'check_report' r.id %}">{{ r.id }} {{ r.date }}</a></h4>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+
 
 {% endblock %}

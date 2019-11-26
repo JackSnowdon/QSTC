@@ -44,6 +44,7 @@
     -o-transition: all 0.35s ease-in-out;
 }
 
+.report-list a:hover,
 .stock-line-item a:hover,
 .add-links:hover {
     color: rgba(146, 240, 146, 0.867);
@@ -88,6 +89,24 @@
 
 .test {
     display: flex;
+}
+
+/* Stock */
+
+.list-padding {
+    padding: 6px;
+}
+
+.report-list {
+    list-style-type: none;
+}
+
+.report-list a {
+    color: forestgreen;
+    transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    -webkit-transition: all 0.35s ease-in-out;
+    -o-transition: all 0.35s ease-in-out;
 }
 
 
