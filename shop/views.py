@@ -430,23 +430,12 @@ def get_all_stock(request):
     )
 
 
-def check_report(request, id):
-    reports = StockObject.objects.filter(report_number=id)
-    report = StockReport.objects.get(id=id)
-
-    return render(request, "single_report.html", {"reports": reports, "report": report})
-
-
 def save_stock_report(request):
-
     stock_form = StockForm()
     stock = stock_form.save(commit=False)
     date = datetime.datetime.now()
     stock.date = date
     stock.save()
-
-    print("ID:", stock.id)
-
     report_no = stock.id
 
     rounds = Round.objects.order_by("name")
@@ -465,7 +454,8 @@ def save_stock_report(request):
 
     stock.save()
 
-    return redirect(reverse("shop")) 
+    return redirect('check_report', report_no)
+
 
 def save_stock_items(x, z):
     for y in x:
@@ -476,8 +466,15 @@ def save_stock_items(x, z):
         sitem.name = name
         sitem.stock = s
         sitem.report_number = StockReport.objects.get(id=z)
-        sitem.save()
+        sitem.save()    
 
+
+def check_report(request, id):
+    reports = StockObject.objects.filter(report_number=id)
+    this_report = StockReport.objects.get(id=id)
+    all_reports = StockReport.objects.order_by("date")
+
+    return render(request, "single_report.html", {"reports": reports, "this_report": this_report, "all_reports": all_reports})
 
 def unpack_stock(x):
     name = ([y.name for y in x])
