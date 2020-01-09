@@ -114,7 +114,7 @@
     <ul class="report-list">
         {% for r in reports %}
         <li class="list-padding">
-            <h4>Report Number: <a href="{% url 'check_report' r.id %}">{{ r.id }} {{ r.date }}</a></h4>
+            <h4>Report Number: <a href="{% url 'check_report' r.id %}">{{ r.id }} <span class="report-datetime"> {{ r.date|date:"d/m/y" }} {{ r.date|time }} </span></a></h4>
         </li>
         {% endfor %}
     </ul>
