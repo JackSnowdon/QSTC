@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Flat, Round, RoundTube, Shader, StockReport, StockObject, Mag, Vtip
 from .forms import (
     EditFlatForm,
@@ -17,31 +18,38 @@ from .forms import (
     MagForm,
     VtipForm,
 )
+from home.views import index
 import datetime
 
 
 # Create your views here.
 
-
+@login_required
 def shop(request):
-    rounds = Round.objects.order_by("name")
-    shaders = Shader.objects.order_by("name")
-    mags = Mag.objects.order_by("name")
-    tubes = RoundTube.objects.order_by("name")
-    vtips = Vtip.objects.order_by("name")
-    flats = Flat.objects.order_by("name")
-    return render(
-        request,
-        "shop.html",
-        {
-            "rounds": rounds,
-            "shaders": shaders,
-            "mags": mags,
-            "tubes": tubes,
-            "vtips": vtips,
-            "flats": flats,
-        },
-    )
+    if request.user.profile.staff_access:
+        rounds = Round.objects.order_by("name")
+        shaders = Shader.objects.order_by("name")
+        mags = Mag.objects.order_by("name")
+        tubes = RoundTube.objects.order_by("name")
+        vtips = Vtip.objects.order_by("name")
+        flats = Flat.objects.order_by("name")
+        return render(
+            request,
+            "shop.html",
+            {
+                "rounds": rounds,
+                "shaders": shaders,
+                "mags": mags,
+                "tubes": tubes,
+                "vtips": vtips,
+                "flats": flats,
+            },
+        )
+    else:
+        messages.error(
+                request, "You Don't Have The Required Permissions", extra_tags="alert"
+            )
+        return redirect("index")
 
 
 # Rounds
@@ -404,8 +412,10 @@ def delete_flat(request, pk=id):
 
 # Stock 
 
-
+@login_required()
 def get_all_stock(request):
+
+
     
     rounds = Round.objects.values('name', 'stock').order_by('name')
     shaders = Shader.objects.values('name', 'stock').order_by('name')

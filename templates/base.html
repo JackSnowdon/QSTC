@@ -33,10 +33,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
                 </li>
+                {% if user.profile.staff_access %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'shop' %}">Store</a>
                 </li>
-                {% if user.is_authenticated %}
+                {% endif %} {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
