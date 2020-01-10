@@ -1,21 +1,18 @@
-{% extends 'base.html' %} {% load static %} {% block page_title %} QTSC - Report {% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block page_title %} QTSC - Report {% endblock %} {% block content %}
 
 
 <div class="row text-center">
     <div class="col-12">
-        <h3>Report Created On: {{ this_report.date }}</br>
-            <br>
-            Report Number: {{ this_report.id }}</h3>
+        <h3 class="mb-1">Report Created On: {{ this_report.date }}</h3>
+        <h4>Report Number: {{ this_report.id }}</h4>
+        <p>Completed By: {{ this_report.done_by }}</p>
     </div>
 </div>
 
 <div class="row text-center">
     <div class="col-12">
         {% for r in all_reports %}
-        <span class="report-links"><a href="{% url 'check_report' r.id %}">{{ r.id }}</a></span>
-        {% endfor %}
+        <span class="report-links"><a href="{% url 'check_report' r.id %}">{{ r.id }}</a></span> {% endfor %}
     </div>
 </div>
 
@@ -24,9 +21,7 @@
 <a href="{% url 'get_all_stock' %}" role="button" class="btn btn-warning" id="back" aria-disabled="false">Back To
     Stock</a>
 <br>
-<br>
-
-{% for r in reports %}
+<br> {% for r in reports %}
 
 <div class="row stock-line">
     <div class="col-6">
@@ -37,8 +32,4 @@
     </div>
 </div>
 
-<br>
-
-{% endfor %}
-
-{% endblock %}
+<br> {% endfor %} {% endblock %}

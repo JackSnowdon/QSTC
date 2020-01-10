@@ -76,5 +76,6 @@ def registration(request):
 def user_profile(request):
     """ Display user profile """
     user = User.objects.get(email=request.user.email)
+    reports = user.profile.reports.all()
 
-    return render(request, "profile.html", {"user": user})
+    return render(request, "profile.html", {"user": user, "reports": reports})

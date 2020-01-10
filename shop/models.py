@@ -1,4 +1,5 @@
 from django.db import models
+from accounts.models import *
 import datetime
 from django.utils import timezone
 
@@ -87,6 +88,7 @@ class Flat(models.Model):
 
 class StockReport(models.Model):
     date = models.DateTimeField(auto_now=True)
+    done_by = models.ForeignKey(Profile, related_name='reports', on_delete=models.PROTECT)
 
     def __str__(self):  
         return 'Stock Report {0} Completed on {1}'.format(self.id, self.date.date())

@@ -3,12 +3,10 @@
 <h3>Username: {{ user.profile }}</h3>
 <p>Your Email: {{ user.email }} </p>
 
-<div class="row">
-    <div class="col-12 text-center">
 
-        {{ user }}
-
-    </div>
-</div>
+<h3>Reports Completed</h3>
+{% for r in reports %}
+<p class="report-links"><a href="{% url 'check_report' r.id %}">{{ r.id }}</a> @ {{ r.date }}</p>
+{% endfor %}
 
 <a class="roster-link" href="{% url 'password_reset' %}">Reset Password</a> {% endblock %}

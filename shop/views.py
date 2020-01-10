@@ -662,6 +662,7 @@ def save_stock_report(request):
         stock = stock_form.save(commit=False)
         date = datetime.datetime.now()
         stock.date = date
+        stock.done_by = request.user.profile
         stock.save()
         report_no = stock.id
 
@@ -678,6 +679,8 @@ def save_stock_report(request):
         save_stock_items(tubes, report_no)
         save_stock_items(vtips, report_no)
         save_stock_items(flats, report_no)
+
+        
 
         stock.save()
 
