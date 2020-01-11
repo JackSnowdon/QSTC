@@ -10,7 +10,7 @@
 
     {% for a in tattoo_artists %}
     <div class="row mb-5">
-        <div class="col-7 text-center">
+        <div class="col-md-7 col-12 text-center">
             <h3 class="mb-4">{{ a.name }}</h3>
             <h4>{{ a.about }}</h4>
             <div class="row social-links">
@@ -18,10 +18,11 @@
                     <br>
                     <br> {% if a.instagram_handle %}
                     <a class="fa-lg mx-1" href="https://www.instagram.com/{{ a.instagram_handle }}" target="_blank"><i class="fab fa-instagram fa-lg"></i></a> {% endif %}
+                    <br>
                 </div>
             </div>
         </div>
-        <div class="col-5">
+        <div class="col-md-5 col-12">
             <img class="img-fluid detail-img" src="{{ MEDIA_URL }}{{ a.image }}">
             <br>
         </div>

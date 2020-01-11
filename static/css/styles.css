@@ -64,7 +64,17 @@
 /* Artists */
 
 .detail-img {
-    height: 450px;
+    padding-top: 1rem;
+    height: 350px;
+    transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    -webkit-transition: all 0.35s ease-in-out;
+    -o-transition: all 0.35s ease-in-out;
+    border-radius: 5px;
+}
+
+.detail-img:hover {
+    border-radius: 15px;
 }
 
 

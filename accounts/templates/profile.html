@@ -9,4 +9,6 @@
 <p class="report-links"><a href="{% url 'check_report' r.id %}">{{ r.id }}</a> @ {{ r.date }}</p>
 {% endfor %}
 
-<a class="roster-link" href="{% url 'password_reset' %}">Reset Password</a> {% endblock %}
+<a class="roster-link" href="{% url 'password_reset' %}">Reset Password</a>
+
+<a class="btn btn-success cart-add" href="{% url 'add_artist' %}">Add Artist Profile</a>{% endblock %}
