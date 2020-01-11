@@ -1,23 +1,32 @@
 {% extends 'base.html' %} {% load static %} {% block page_title %} QTSC - Artists {% endblock %} {% block content %}
 
 <div class="home-bg">
-    <div class="row">
+    <div class="row mb-4">
         <div class="col-12 text-center">
             <h2 class="mb-3">Queens Square Tattoo Club</h2>
             <h3>Artists</h3>
         </div>
     </div>
 
-    <div class="row">
-
-        {% for a in tattoo_artists %}
-        <div class="col-12">
-            <h3>{{ a.name }}</h3>
+    {% for a in tattoo_artists %}
+    <div class="row mb-5">
+        <div class="col-7 text-center">
+            <h3 class="mb-4">{{ a.name }}</h3>
+            <h4>{{ a.about }}</h4>
+            <div class="row social-links">
+                <div class="col-12">
+                    <br>
+                    <br> {% if a.instagram_handle %}
+                    <a class="fa-lg mx-1" href="https://www.instagram.com/{{ a.instagram_handle }}" target="_blank"><i class="fab fa-instagram fa-lg"></i></a> {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
             <img class="img-fluid detail-img" src="{{ MEDIA_URL }}{{ a.image }}">
             <br>
         </div>
-        {% endfor %}
     </div>
+    {% endfor %}
 </div>
 
 
