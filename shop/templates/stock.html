@@ -100,8 +100,7 @@
 <br>
 
 <div class="text-center">
-    <a href="{% url 'save_stock_report' %}" role="button" class="btn btn-warning" id="all-stock"
-        aria-disabled="false">Confirm and Save Stock</a>
+    <a href="{% url 'save_stock_report' %}" role="button" class="btn btn-warning" id="all-stock" aria-disabled="false">Confirm and Save Stock</a>
 </div>
 
 <br>
@@ -114,7 +113,7 @@
     <ul class="report-list">
         {% for r in reports %}
         <li class="list-padding">
-            <h4>Report Number: <a href="{% url 'check_report' r.id %}">{{ r.id }} <span class="report-datetime"> {{ r.date|date:"d/m/y" }} {{ r.date|time }} </span></a></h4>
+            <h4>Report Number: <a href="{% url 'check_report' r.id %}">{{ r.id }} <span class="report-datetime"> {{ r.date|date:"d/m/y" }} {{ r.date|time }} </span></a> - Done By {{ r.done_by }}</h4>
         </li>
         {% endfor %}
     </ul>

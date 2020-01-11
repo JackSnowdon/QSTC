@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% load static %} {% block page_title %} QTSC - Artists {% endblock %} {% block content %}
+
+<div class="home-bg">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h2 class="mb-3">Queens Square Tattoo Club</h2>
+            <h3>Artists</h3>
+        </div>
+    </div>
+
+    <div class="row">
+
+        {% for a in tattoo_artists %}
+        <div class="col-12">
+            <h3>{{ a.name }}</h3>
+            <img class="img-fluid detail-img" src="{{ MEDIA_URL }}{{ a.image }}">
+            <br>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+{% endblock %}
