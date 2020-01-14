@@ -2,7 +2,6 @@
 
 <div class="row">
     <div class="col-12">
-
         <h3 class="mb-3">Username: {{ user.profile }}</h3>
         {% if profile.artist_profile %}
         <a class="btn btn-success cart-add mb-2" href="{% url 'edit_artist' profile.artist_profile.id %}">Edit Artist
@@ -16,6 +15,9 @@
 {% for r in reports %}
 <p class="report-links"><a href="{% url 'check_report' r.id %}">{{ r.id }}</a> @ {{ r.date }}</p>
 {% endfor %}
-
-<span class="report-links">
-<a href="{% url 'password_reset' %}">Reset Password</a> </span> {% endblock %}
+<div class="row">
+    <div class="col-12 report-links">
+        <a href="{% url 'password_reset' %}">Reset Password</a>
+        <br>
+    </div>
+</div>{% endblock %}
