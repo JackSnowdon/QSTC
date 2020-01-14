@@ -1,15 +1,21 @@
 {% extends 'base.html' %} {% block page_title %}{{ user }}'s Profile{% endblock %} {% block content %}
 
-<h3>Username: {{ user.profile }}</h3>
-<p>Your Email: {{ user.email }} </p>
+<div class="row">
+    <div class="col-12">
+
+        <h3 class="mb-3">Username: {{ user.profile }}</h3>
+        {% if profile.artist_profile %}
+        <a class="btn btn-success cart-add mb-2" href="{% url 'edit_artist' profile.artist_profile.id %}">Edit Artist
+            Profile</a> {% else %}
+        <a class="btn btn-success cart-add mb-2" href="{% url 'add_artist' %}">Add Artist Profile</a> {% endif %}
+    </div>
+</div>
 
 
-<h3>Reports Completed</h3>
+<h3 class="mb-3">Reports Completed:</h3>
 {% for r in reports %}
 <p class="report-links"><a href="{% url 'check_report' r.id %}">{{ r.id }}</a> @ {{ r.date }}</p>
 {% endfor %}
 
-<a class="roster-link" href="{% url 'password_reset' %}">Reset Password</a>
-<br> {% if profile.artist_profile %}
-<a class="btn btn-success cart-add" href="{% url 'edit_artist' profile.artist_profile.id %}">Edit Artist Profile</a> {% else %}
-<a class="btn btn-success cart-add" href="{% url 'add_artist' %}">Add Artist Profile</a> {% endif %} {% endblock %}
+<span class="report-links">
+<a href="{% url 'password_reset' %}">Reset Password</a> </span> {% endblock %}

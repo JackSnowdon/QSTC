@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Artist
-from .forms import ArtistForm
+from .forms import ArtistForm, EditArtist
 
 # Create your views here.
 
@@ -38,7 +38,7 @@ def add_artist(request):
         messages.error(
             request, "You Don't Have The Required Permissions", extra_tags="alert"
         )
-        return redirect("artist")
+        return redirect("artists")
 
 
 @login_required
@@ -46,15 +46,13 @@ def edit_artist(request, id):
     if request.user.profile.staff_access:   
         item = get_object_or_404(Artist, pk=id)
         if request.method == "POST":
-            artist_form = ArtistForm(request.POST, request.FILES or None)
+            artist_form = EditArtist(request.POST, request.FILES or None, instance=item)
             if artist_form.is_valid():
-                artist = artist_form.save(commit=False)
-                artist.profile = request.user.profile
-                artist.save()
+                artist_form.save()
                 messages.error(request, "Edited {0}".format(item.name), extra_tags="alert")
-                return redirect("artist")
+                return redirect("artists")
         else:
-            artist_form = ArtistForm(instance=item)
+            artist_form = EditArtist(instance=item)
         return render(
             request, "edit_artist.html", {"artist_form": artist_form, "item": item}
         )
@@ -62,7 +60,7 @@ def edit_artist(request, id):
         messages.error(
             request, "You Don't Have The Required Permissions", extra_tags="alert"
         )
-        return redirect("artist")
+        return redirect("artists")
 
 
 @login_required
