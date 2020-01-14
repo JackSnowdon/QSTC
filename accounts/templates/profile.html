@@ -10,8 +10,6 @@
 {% endfor %}
 
 <a class="roster-link" href="{% url 'password_reset' %}">Reset Password</a>
-<br> {% if artist_profile %}
-<a class="btn btn-success cart-add" href="{% url 'edit_artist' artist_profile.id %}">Edit Artist Profile</a> {% else %}
-
-
+<br> {% if profile.artist_profile %}
+<a class="btn btn-success cart-add" href="{% url 'edit_artist' profile.artist_profile.id %}">Edit Artist Profile</a> {% else %}
 <a class="btn btn-success cart-add" href="{% url 'add_artist' %}">Add Artist Profile</a> {% endif %} {% endblock %}

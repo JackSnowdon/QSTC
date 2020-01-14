@@ -48,10 +48,6 @@ def edit_artist(request, id):
         if request.method == "POST":
             artist_form = ArtistForm(request.POST, request.FILES or None)
             if artist_form.is_valid():
-
-                # Not Saving
-
-
                 artist = artist_form.save(commit=False)
                 artist.profile = request.user.profile
                 artist.save()
@@ -67,3 +63,17 @@ def edit_artist(request, id):
             request, "You Don't Have The Required Permissions", extra_tags="alert"
         )
         return redirect("artist")
+
+
+@login_required
+def delete_artist(request, id):
+    if request.user.profile.staff_access:
+        instance = Artist.objects.get(pk=id)
+        messages.error(request, "Deleted {0}".format(instance), extra_tags="alert")
+        instance.delete()
+        return redirect(reverse("profile"))
+    else:
+        messages.error(
+            request, "You Don't Have The Required Permissions", extra_tags="alert"
+        )
+        return redirect("index")

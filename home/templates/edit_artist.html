@@ -8,4 +8,9 @@
     </div>
 </form>
 
+<form class="" method="post" action="{% url 'delete_artist' item.id %}">
+    {% csrf_token %}
+    <button class="btn btn-success" type="submit">Delete Artist</button>
+</form>
+
 {% endblock %}

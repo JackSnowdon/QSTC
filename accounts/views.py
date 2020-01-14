@@ -78,6 +78,12 @@ def user_profile(request):
     user = User.objects.get(email=request.user.email)
     profile = user.profile
     reports = profile.reports.all()
-    artist_profile = profile.artist_profile
-
-    return render(request, "profile.html", {"user": user, "reports": reports, "artist_profile": artist_profile})
+    return render(
+        request,
+        "profile.html",
+        {
+            "user": user,
+            "reports": reports,
+            "profile": profile,
+        },
+    )
