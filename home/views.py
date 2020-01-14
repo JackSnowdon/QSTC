@@ -6,22 +6,30 @@ from .forms import ArtistForm
 
 # Create your views here.
 
+
 def index(request):
-    return render(request, 'index.html')
+    return render(request, "index.html")
+
 
 def artists(request):
     tattoo_artists = Artist.objects.order_by("name")
-    return render(request, 'artists.html', {"tattoo_artists": tattoo_artists})
+    return render(request, "artists.html", {"tattoo_artists": tattoo_artists})
+
 
 @login_required
 def add_artist(request):
     if request.user.profile.staff_access:
         if request.method == "POST":
-            artist_form = ArtistForm(request.POST)
+            artist_form = ArtistForm(request.POST, request.FILES or None)
             if artist_form.is_valid():
                 artist = artist_form.save(commit=False)
                 artist.profile = request.user.profile
                 artist.save()
+                messages.error(
+                    request,
+                    "Added {0}'s Artist Profile".format(artist.name),
+                    extra_tags="alert",
+                )
                 return redirect("artists")
         else:
             artist_form = ArtistForm()
@@ -30,4 +38,32 @@ def add_artist(request):
         messages.error(
             request, "You Don't Have The Required Permissions", extra_tags="alert"
         )
-        return redirect("index")
+        return redirect("artist")
+
+
+@login_required
+def edit_artist(request, id):
+    if request.user.profile.staff_access:   
+        item = get_object_or_404(Artist, pk=id)
+        if request.method == "POST":
+            artist_form = ArtistForm(request.POST, request.FILES or None)
+            if artist_form.is_valid():
+
+                # Not Saving
+
+
+                artist = artist_form.save(commit=False)
+                artist.profile = request.user.profile
+                artist.save()
+                messages.error(request, "Edited {0}".format(item.name), extra_tags="alert")
+                return redirect("artist")
+        else:
+            artist_form = ArtistForm(instance=item)
+        return render(
+            request, "edit_artist.html", {"artist_form": artist_form, "item": item}
+        )
+    else:
+        messages.error(
+            request, "You Don't Have The Required Permissions", extra_tags="alert"
+        )
+        return redirect("artist")

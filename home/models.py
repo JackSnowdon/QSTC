@@ -9,7 +9,7 @@ class Artist(models.Model):
     about = models.TextField()
     twitter_handle = models.CharField(max_length=30, blank=True)
     instagram_handle = models.CharField(max_length=30, blank=True)
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name='artist_profile')
     
     def __str__(self):
         return self.name

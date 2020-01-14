@@ -1,9 +1,9 @@
-{% extends 'base.html' %} {% block page_title %} Add Artist {% endblock %} {% block content %}
+{% extends 'base.html' %} {% load crispy_forms_tags %} {% block page_title %} Add Artist {% endblock %} {% block content %}
 
 <h2>New Artist</h2>
-<form role="form" method="post" id="add-artist-form" action="{% url 'add_artist' %}">
+<form role="form" method="post" enctype="multipart/form-data" id="add-artist-form" action="{% url 'add_artist' %}">
     <div class="form-group">
-        {{ artist_form.as_p }} {% csrf_token %}
+        {{ artist_form|crispy}} {% csrf_token %}
         <input class="btn btn-success" id="submit_artist" name="commit" type="submit" value="Add Artist">
     </div>
 </form>
