@@ -1,0 +1,1 @@
+web: gunicorn QSTC.wsgi:application
