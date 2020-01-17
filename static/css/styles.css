@@ -107,7 +107,7 @@
 }
 
 .stock-line-buttons {
-    padding-top: 24px;
+    padding-top: 15px;
     display: inline-flex;
 }
 
@@ -170,14 +170,23 @@
     color: #ecf4f4;
 }
 
+.stock-list-padding {
+    padding-top: 2.5px;
+}
+
 
 /* Breaks */
 
 .bar-thin {
     background-color: #faf5ff;
     height: 2.5px;
-    width: 350px;
+    width: 250px;
     border-radius: 7px 7px 7px 7px;
     border: 1px;
     padding: 1px;
 }
+
+
+/* Media Queires */
+
+@media (max-width: 575.98px) {}

@@ -1,22 +1,23 @@
 {% extends 'base.html' %} {% load static %} {% block page_title %} QTSC - Stock {% endblock %} {% block content %}
 
-<h1 class="text-center">Stock Report</h1>
-<a href="{% url 'shop' %}" role="button" class="btn btn-warning" id="back" aria-disabled="false">Back To Shop</a>
-<br>
-<br>
-<br>
+<h1 class="text-center mb-2">Stock Report</h1>
+<div class="row mb-5">
+    <div class="col-12 text-center">
+        <a href="{% url 'shop' %}" role="button" class="btn btn-warning" id="back" aria-disabled="false">Back To
+            Shop</a>
+    </div>
+</div>
 <br>
 <h2>Needles</h2>
 <hr class="bar-thin">
-
 <br>
 <div class="row">
     <div class="col-4">
         <h3>Rounds:</h3>
         <ul>
             {% for r in rounds %}
-            <li class="list-padding">
-                {{ r.name }}: Stock = {{ r.stock }}
+            <li class="stock-list-padding">
+                {{ r.name }}: {{ r.stock }}
             </li>
             {% endfor %}
         </ul>
@@ -29,8 +30,8 @@
         <h3>Shaders:</h3>
         <ul>
             {% for s in shaders %}
-            <li class="list-padding">
-                {{ s.name }}: Stock = {{ s.stock }}
+            <li class="stock-list-padding">
+                {{ s.name }}: {{ s.stock }}
             </li>
 
             {% endfor %}
@@ -44,8 +45,8 @@
         <h3>Mags:</h3>
         <ul>
             {% for m in mags %}
-            <li class="list-padding">
-                {{ m.name }}: Stock = {{ m.stock }}
+            <li class="stock-list-padding">
+                {{ m.name }}: {{ m.stock }}
             </li>
             {% endfor %}
         </ul>
@@ -62,8 +63,8 @@
         <h3>Round Tubes:</h3>
         <ul>
             {% for t in tubes %}
-            <li class="list-padding">
-                {{ t.name }}: Stock = {{ t.stock }}
+            <li class="stock-list-padding">
+                {{ t.name }}: {{ t.stock }}
             </li>
             {% endfor %}
         </ul>
@@ -76,8 +77,8 @@
         <h3>Vtips:</h3>
         <ul>
             {% for v in vtips %}
-            <li class="list-padding">
-                {{ v.name }}: Stock = {{ v.stock }}
+            <li class="stock-list-padding">
+                {{ v.name }}: {{ v.stock }}
             </li>
             {% endfor %}
         </ul>
@@ -89,8 +90,8 @@
         <h3>Flats:</h3>
         <ul>
             {% for f in flats %}
-            <li class="list-padding">
-                {{ f.name }}: Stock = {{ f.stock }}
+            <li class="stock-list-padding">
+                {{ f.name }}: {{ f.stock }}
             </li>
             {% endfor %}
         </ul>
@@ -113,7 +114,8 @@
     <ul class="report-list">
         {% for r in reports %}
         <li class="list-padding">
-            <h4>Report Number: <a href="{% url 'check_report' r.id %}">{{ r.id }} <span class="report-datetime"> {{ r.date|date:"d/m/y" }} {{ r.date|time }} </span></a> - Done By {{ r.done_by }}</h4>
+            <h4>Report Number: <a href="{% url 'check_report' r.id %}">{{ r.id }} <span class="report-datetime">
+                        {{ r.date|date:"d/m/y" }} {{ r.date|time }} </span></a> - Done By {{ r.done_by }}</h4>
         </li>
         {% endfor %}
     </ul>

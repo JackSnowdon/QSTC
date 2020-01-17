@@ -1,6 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block page_title %} QSTC - Store {% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block page_title %} QSTC - Store {% endblock %} {% block content %}
 
 <div class="row">
     <div class="col-12">
@@ -29,13 +27,16 @@
 </div>
 {% for r in rounds %}
 <div class="row stock-line">
-    <div class="col-4">
-        <p class="stock-line-item">Name: {{ r.name }}</p>
+    <div class="col-2">
+        <p class="stock-line-item">{{ r.name }}</p>
     </div>
-    <div class="col-4">
-        <p class="stock-line-item">Stock: {{ r.stock }} <a href="{% url 'plus_round' r.id %}"><span><i class="fas fa-plus"></i></span></a><a href="{% url 'minus_round' r.id %}"> <span><i class="fas fa-minus"></i></span></a></p>
+    <div class="col-5">
+        <p class="stock-line-item text-center">Stock: {{ r.stock }} <br>
+            <a href="{% url 'plus_round' r.id %}"><span><i class="fas fa-plus"></i></span></a>
+            <a href="{% url 'minus_round' r.id %}"> <span><i class="fas fa-minus"></i></span></a>
+        </p>
     </div>
-    <div class="col-4">
+    <div class="col-5">
         <div class="stock-line-buttons">
             <a href="{% url 'edit_round' r.id %}" class="add-links">
                 <span>Edit Stock</span>
@@ -49,8 +50,7 @@
         </div>
     </div>
 </div>
-<br>
-{% endfor %}
+<br> {% endfor %}
 <br>
 <hr class="bar-thin">
 <br>
@@ -70,13 +70,16 @@
 </div>
 {% for s in shaders %}
 <div class="row stock-line">
-    <div class="col-4">
-        <p class="stock-line-item">Name: {{ s.name }}</p>
+    <div class="col-2">
+        <p class="stock-line-item">{{ s.name }}</p>
     </div>
-    <div class="col-4">
-        <p class="stock-line-item">Stock: {{ s.stock }} <a href="{% url 'plus_shader' s.id %}"><span><i class="fas fa-plus"></i></span></a><a href="{% url 'minus_shader' s.id %}"> <span><i class="fas fa-minus"></i></span></a></p>
+    <div class="col-5">
+        <p class="stock-line-item text-center">Stock: {{ s.stock }} </br>
+            <a href="{% url 'plus_shader' s.id %}"><span><i class="fas fa-plus"></i></span></a>
+            <a href="{% url 'minus_shader' s.id %}"> <span><i class="fas fa-minus"></i></span></a>
+        </p>
     </div>
-    <div class="col-4">
+    <div class="col-5">
         <div class="stock-line-buttons">
             <a href="{% url 'edit_shader' s.id %}" class="add-links">
                 <span>Edit Stock</span>
@@ -90,8 +93,7 @@
         </div>
     </div>
 </div>
-<br>
-{% endfor %}
+<br> {% endfor %}
 <br>
 <hr class="bar-thin">
 <br>
@@ -111,13 +113,16 @@
 </div>
 {% for m in mags %}
 <div class="row stock-line">
-    <div class="col-4">
-        <p class="stock-line-item">Name: {{ m.name }}</p>
+    <div class="col-2">
+        <p class="stock-line-item">{{ m.name }}</p>
     </div>
-    <div class="col-4">
-        <p class="stock-line-item">Stock: {{ m.stock }} <a href="{% url 'plus_mag' m.id %}"><span><i class="fas fa-plus"></i></span></a><a href="{% url 'minus_mag' m.id %}"> <span><i class="fas fa-minus"></i></span></a></p>
+    <div class="col-5">
+        <p class="stock-line-item text-center">Stock: {{ m.stock }} </br>
+            <a href="{% url 'plus_mag' m.id %}"><span><i class="fas fa-plus"></i></span></a>
+            <a href="{% url 'minus_mag' m.id %}"> <span><i class="fas fa-minus"></i></span></a>
+        </p>
     </div>
-    <div class="col-4">
+    <div class="col-5">
         <div class="stock-line-buttons">
             <a href="{% url 'edit_mag' m.id %}" class="add-links">
                 <span>Edit Stock</span>
@@ -131,8 +136,7 @@
         </div>
     </div>
 </div>
-<br>
-{% endfor %}
+<br> {% endfor %}
 <br>
 <hr class="bar-thin">
 <br>
@@ -157,13 +161,16 @@
 </div>
 {% for t in tubes %}
 <div class="row stock-line">
-    <div class="col-4">
-        <p class="stock-line-item">Name: {{ t.name }}</p>
+    <div class="col-2">
+        <p class="stock-line-item">{{ t.name }}</p>
     </div>
-    <div class="col-4">
-        <p class="stock-line-item">Stock: {{ t.stock }} <a href="{% url 'plus_round_tube' t.id %}"><span><i class="fas fa-plus"></i></span></a><a href="{% url 'minus_round_tube' t.id %}"> <span><i class="fas fa-minus"></i></span></a></p>
+    <div class="col-5">
+        <p class="stock-line-item text-center">Stock: {{ t.stock }} </br>
+            <a href="{% url 'plus_round_tube' t.id %}"><span><i class="fas fa-plus"></i></span></a>
+            <a href="{% url 'minus_round_tube' t.id %}"> <span><i class="fas fa-minus"></i></span></a>
+        </p>
     </div>
-    <div class="col-4">
+    <div class="col-5">
         <div class="stock-line-buttons">
             <a href="{% url 'edit_round_tube' t.id %}" class="add-links">
                 <span>Edit Stock</span>
@@ -177,8 +184,7 @@
         </div>
     </div>
 </div>
-<br>
-{% endfor %}
+<br> {% endfor %}
 
 <br>
 <hr class="bar-thin">
@@ -199,13 +205,16 @@
 </div>
 {% for v in vtips %}
 <div class="row stock-line">
-    <div class="col-4">
-        <p class="stock-line-item">Name: {{ v.name }}</p>
+    <div class="col-2">
+        <p class="stock-line-item">{{ v.name }}</p>
     </div>
-    <div class="col-4">
-        <p class="stock-line-item">Stock: {{ v.stock }} <a href="{% url 'plus_vtip' v.id %}"><span><i class="fas fa-plus"></i></span></a><a href="{% url 'minus_vtip' v.id %}"> <span><i class="fas fa-minus"></i></span></a></p>
+    <div class="col-5">
+        <p class="stock-line-item text-center">Stock: {{ v.stock }} </br>
+            <a href="{% url 'plus_vtip' v.id %}"><span><i class="fas fa-plus"></i></span><a>
+            <a href="{% url 'minus_vtip' v.id %}"> <span><i class="fas fa-minus"></i></span></a>
+        </p>
     </div>
-    <div class="col-4">
+    <div class="col-5">
         <div class="stock-line-buttons">
             <a href="{% url 'edit_vtip' v.id %}" class="add-links">
                 <span>Edit Stock</span>
@@ -219,8 +228,7 @@
         </div>
     </div>
 </div>
-<br>
-{% endfor %}
+<br> {% endfor %}
 
 <br>
 <hr class="bar-thin">
@@ -242,13 +250,16 @@
 </div>
 {% for f in flats %}
 <div class="row stock-line">
-    <div class="col-4">
-        <p class="stock-line-item">Name: {{ f.name }}</p>
+    <div class="col-2">
+        <p class="stock-line-item">{{ f.name }}</p>
     </div>
-    <div class="col-4">
-        <p class="stock-line-item">Stock: {{ f.stock }} <a href="{% url 'plus_flat' f.id %}"><span><i class="fas fa-plus"></i></span></a><a href="{% url 'minus_flat' f.id %}"> <span><i class="fas fa-minus"></i></span></a></p>
+    <div class="col-5">
+        <p class="stock-line-item text-center">Stock: {{ f.stock }} </br>
+            <a href="{% url 'plus_flat' f.id %}"><span><i class="fas fa-plus"></i></span></a>
+            <a href="{% url 'minus_flat' f.id %}"> <span><i class="fas fa-minus"></i></span></a>
+        </p>
     </div>
-    <div class="col-4">
+    <div class="col-5">
         <div class="stock-line-buttons">
             <a href="{% url 'edit_flat' f.id %}" class="add-links">
                 <span>Edit Stock</span>
@@ -262,13 +273,8 @@
         </div>
     </div>
 </div>
-<br>
-{% endfor %}
+<br> {% endfor %}
 
 <br>
 <hr class="bar-thin">
-<br>
-
-
-
-{% endblock %}
+<br> {% endblock %}
