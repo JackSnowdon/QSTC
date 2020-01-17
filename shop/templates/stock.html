@@ -115,7 +115,8 @@
         {% for r in reports %}
         <li class="list-padding">
             <h4>Report Number: <a href="{% url 'check_report' r.id %}">{{ r.id }} <span class="report-datetime">
-                        {{ r.date|date:"d/m/y" }} {{ r.date|time }} </span></a> - Done By {{ r.done_by }}</h4>
+                        {{ r.date|date:"d/m/y" }} {{ r.date|time }} </span></a></h4>
+            <p>Completed By {{ r.done_by }}</p>
         </li>
         {% endfor %}
     </ul>
